@@ -7,6 +7,9 @@
     <link rel="icon" type="image/x-icon" href="https://i.postimg.cc/QCfkMpcM/20251121-1617-Golden-Lion-Emblem-remix-01kak8vrfpfb9r1335qyg8w1gt.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
     <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#D4AF37">
@@ -37,6 +40,9 @@
             --whatsapp-dark: #128C7E;
             --primary: #2c3e50;
             --secondary: #3498db;
+            --like-color: #e74c3c;
+            --share-color: #3498db;
+            --save-color: #f39c12;
         }
 
         html {
@@ -673,23 +679,16 @@
             color: var(--gold);
         }
 
-        .whatsapp-action {
-            background-color: var(--accent);
-            color: white;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            font-size: 1.3rem;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s;
+        .action-like.active {
+            color: var(--like-color);
         }
 
-        .whatsapp-action:hover {
-            transform: scale(1.1);
+        .action-share.active {
+            color: var(--share-color);
+        }
+
+        .action-save.active {
+            color: var(--save-color);
         }
 
         .post-content {
@@ -1037,13 +1036,16 @@
             </div>
             <div class="post-actions">
                 <div class="action-left">
-                    <button class="post-action save-btn" title="Save post" data-post-id="1">
+                    <button class="post-action action-like" title="Like post" data-post-id="1">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <button class="post-action action-share" title="Share post" data-post-id="1">
+                        <i class="far fa-share-square"></i>
+                    </button>
+                    <button class="post-action action-save" title="Save post" data-post-id="1">
                         <i class="far fa-bookmark"></i>
                     </button>
                 </div>
-                <a href="https://wa.me/254727211191?text=Hi%20Mugera,%20I%20want%20to%20learn%20more%20about%20THE%20SONGA%20WELFARE" class="whatsapp-action" title="Contact via WhatsApp">
-                    <i class="fab fa-whatsapp"></i>
-                </a>
             </div>
             <div class="post-content">
                 <div class="post-caption">
@@ -1090,13 +1092,16 @@
             </div>
             <div class="post-actions">
                 <div class="action-left">
-                    <button class="post-action save-btn" title="Save post" data-post-id="2">
+                    <button class="post-action action-like" title="Like post" data-post-id="2">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <button class="post-action action-share" title="Share post" data-post-id="2">
+                        <i class="far fa-share-square"></i>
+                    </button>
+                    <button class="post-action action-save" title="Save post" data-post-id="2">
                         <i class="far fa-bookmark"></i>
                     </button>
                 </div>
-                <a href="https://wa.me/254727211191?text=Hi%20Mugera,%20I%20just%20watched%20your%20commercial%20about%20awakening%20men" class="whatsapp-action" title="Contact via WhatsApp">
-                    <i class="fab fa-whatsapp"></i>
-                </a>
             </div>
             <div class="post-content">
                 <div class="post-caption">
@@ -1128,13 +1133,16 @@
             </div>
             <div class="post-actions">
                 <div class="action-left">
-                    <button class="post-action save-btn" title="Save post" data-post-id="3">
+                    <button class="post-action action-like" title="Like post" data-post-id="3">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <button class="post-action action-share" title="Share post" data-post-id="3">
+                        <i class="far fa-share-square"></i>
+                    </button>
+                    <button class="post-action action-save" title="Save post" data-post-id="3">
                         <i class="far fa-bookmark"></i>
                     </button>
                 </div>
-                <a href="https://wa.me/254727211191?text=Hi%20Mugera,%20I'm%20interested%20in%20the%20Mugs%20and%20Dines%20program" class="whatsapp-action" title="Contact via WhatsApp">
-                    <i class="fab fa-whatsapp"></i>
-                </a>
             </div>
             <div class="post-content">
                 <div class="post-caption">
@@ -1160,8 +1168,8 @@
                 <button class="contact-btn" id="contactJoinBtn">
                     <i class="fas fa-user-plus"></i> Join Membership
                 </button>
-                <a href="https://wa.me/254727211191" class="contact-btn">
-                    <i class="fab fa-whatsapp"></i> WhatsApp
+                <a href="mailto:office.songawelfare@gmail.com" class="contact-btn">
+                    <i class="fas fa-envelope"></i> Email Us
                 </a>
             </div>
         </div>
@@ -1188,9 +1196,11 @@
     </nav>
 
     <script>
+        // Initialize EmailJS with your credentials
+        emailjs.init("EOj6VnzCm-icMmiR8"); // You'll need to add your public key here
+        
         // Configuration
-        const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbwCo8RkC1zka9RxW1YiDxuPzzCPWqtl2_ZqE_TlBDxLYFFMxHCLoTVZz6nBUR_SaAVC7w/exec';
-        const WHATSAPP_NUMBER = '254727211191';
+        const RECIPIENT_EMAIL = 'office.songawelfare@gmail.com';
         
         // DOM Elements
         const welcomeModal = document.getElementById('welcomeModal');
@@ -1208,6 +1218,9 @@
         const notification = document.getElementById('notification');
         const membershipOptions = document.querySelectorAll('.membership-option');
         const membershipTypeInput = document.getElementById('membershipType');
+        const likeButtons = document.querySelectorAll('.action-like');
+        const shareButtons = document.querySelectorAll('.action-share');
+        const saveButtons = document.querySelectorAll('.action-save');
 
         // Show notification
         function showNotification(message, type = 'success') {
@@ -1261,39 +1274,140 @@
             });
         });
 
-        // Format registration data for WhatsApp message
-        function formatWhatsAppMessage(data) {
-            const membershipText = data.membershipType === 'basic' ? 'Basic Membership (KSh 1,500/month)' : 'Premium Membership (KSh 3,000/month)';
+        // Post interaction functionality
+        likeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const postId = this.getAttribute('data-post-id');
+                this.classList.toggle('active');
+                const icon = this.querySelector('i');
+                
+                if (this.classList.contains('active')) {
+                    icon.classList.remove('far', 'fa-heart');
+                    icon.classList.add('fas', 'fa-heart');
+                    showNotification('Post liked!', 'success');
+                } else {
+                    icon.classList.remove('fas', 'fa-heart');
+                    icon.classList.add('far', 'fa-heart');
+                }
+                
+                // Store like state in localStorage
+                const likeKey = `post_${postId}_liked`;
+                localStorage.setItem(likeKey, this.classList.contains('active'));
+            });
+        });
+
+        shareButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const postId = this.getAttribute('data-post-id');
+                this.classList.toggle('active');
+                const icon = this.querySelector('i');
+                
+                if (this.classList.contains('active')) {
+                    icon.classList.remove('far', 'fa-share-square');
+                    icon.classList.add('fas', 'fa-share-square');
+                    
+                    // Simulate sharing functionality
+                    if (navigator.share) {
+                        // Use Web Share API if available
+                        navigator.share({
+                            title: 'THE SONGA WELFARE',
+                            text: 'Check out this post from THE SONGA WELFARE',
+                            url: window.location.href + `#post-${postId}`
+                        }).then(() => {
+                            showNotification('Post shared successfully!', 'success');
+                        }).catch(() => {
+                            showNotification('Share dialog closed', 'success');
+                        });
+                    } else {
+                        // Fallback: copy to clipboard
+                        navigator.clipboard.writeText(window.location.href + `#post-${postId}`).then(() => {
+                            showNotification('Link copied to clipboard!', 'success');
+                        });
+                    }
+                } else {
+                    icon.classList.remove('fas', 'fa-share-square');
+                    icon.classList.add('far', 'fa-share-square');
+                }
+            });
+        });
+
+        saveButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const postId = this.getAttribute('data-post-id');
+                this.classList.toggle('active');
+                const icon = this.querySelector('i');
+                
+                if (this.classList.contains('active')) {
+                    icon.classList.remove('far', 'fa-bookmark');
+                    icon.classList.add('fas', 'fa-bookmark');
+                    showNotification('Post saved!', 'success');
+                } else {
+                    icon.classList.remove('fas', 'fa-bookmark');
+                    icon.classList.add('far', 'fa-bookmark');
+                    showNotification('Post removed from saved', 'success');
+                }
+                
+                // Store save state in localStorage
+                const saveKey = `post_${postId}_saved`;
+                localStorage.setItem(saveKey, this.classList.contains('active'));
+            });
+        });
+
+        // Restore interaction states from localStorage
+        function restoreInteractionStates() {
+            likeButtons.forEach(button => {
+                const postId = button.getAttribute('data-post-id');
+                const likeKey = `post_${postId}_liked`;
+                if (localStorage.getItem(likeKey) === 'true') {
+                    button.classList.add('active');
+                    const icon = button.querySelector('i');
+                    icon.classList.remove('far', 'fa-heart');
+                    icon.classList.add('fas', 'fa-heart');
+                }
+            });
             
-            return `🎉 *NEW MEMBERSHIP REGISTRATION - THE SONGA WELFARE* 🎉
-
-*Personal Details:*
-👤 Name: ${data.firstName} ${data.lastName}
-📧 Email: ${data.email}
-📞 Phone: ${data.phone}
-📍 Location: ${data.location}
-💼 Occupation: ${data.occupation}
-
-*Membership Information:*
-📋 Selected: ${membershipText}
-🔍 Heard About Us: ${data.hearAbout}
-
-*Goals & Expectations:*
-${data.goals || 'No specific goals mentioned'}
-
-*Registration Details:*
-📅 Registered: ${new Date().toLocaleString()}
-🌐 Source: Website Membership Registration`;
+            saveButtons.forEach(button => {
+                const postId = button.getAttribute('data-post-id');
+                const saveKey = `post_${postId}_saved`;
+                if (localStorage.getItem(saveKey) === 'true') {
+                    button.classList.add('active');
+                    const icon = button.querySelector('i');
+                    icon.classList.remove('far', 'fa-bookmark');
+                    icon.classList.add('fas', 'fa-bookmark');
+                }
+            });
         }
 
-        // Send data to WhatsApp
-        function sendToWhatsApp(data) {
-            const message = formatWhatsAppMessage(data);
-            const encodedMessage = encodeURIComponent(message);
-            const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+        // Send email using EmailJS
+        async function sendRegistrationEmail(data) {
+            const membershipText = data.membershipType === 'basic' ? 'Basic Membership (KSh 1,500/month)' : 'Premium Membership (KSh 3,000/month)';
             
-            // Open WhatsApp in a new tab
-            window.open(whatsappUrl, '_blank');
+            const templateParams = {
+                to_email: RECIPIENT_EMAIL,
+                from_name: `${data.firstName} ${data.lastName}`,
+                from_email: data.email,
+                phone: data.phone,
+                location: data.location,
+                occupation: data.occupation,
+                hear_about: data.hearAbout,
+                membership_type: membershipText,
+                goals: data.goals || 'No specific goals mentioned',
+                timestamp: new Date().toLocaleString()
+            };
+
+            try {
+                // Send email using EmailJS with your service and template IDs
+                const response = await emailjs.send(
+                    'service_rkqxhnc',    // Your service ID
+                    'template_ua308vI',   // Your template ID
+                    templateParams
+                );
+                
+                return { success: true, response };
+            } catch (error) {
+                console.error('Email sending failed:', error);
+                return { success: false, error };
+            }
         }
 
         // Form submission
@@ -1317,40 +1431,26 @@ ${data.goals || 'No specific goals mentioned'}
             try {
                 showLoading(submitRegistration);
                 
-                // Send to Google Apps Script (optional - for backup)
-                try {
-                    const response = await fetch(BACKEND_URL, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(data)
-                    });
+                // Send email directly to office.songawelfare@gmail.com
+                const emailResult = await sendRegistrationEmail(data);
+                
+                if (emailResult.success) {
+                    // Show success modal
+                    registrationModal.classList.remove('active');
+                    successModal.classList.add('active');
                     
-                    const result = await response.json();
-                    if (!result.success) {
-                        console.warn('Backup storage failed, but continuing with WhatsApp');
-                    }
-                } catch (backupError) {
-                    console.warn('Backup storage failed, but continuing with WhatsApp');
+                    // Mark as visited to prevent showing welcome modal again
+                    markAsVisited();
+                    
+                    // Reset form
+                    registrationForm.reset();
+                    membershipOptions.forEach(opt => opt.classList.remove('selected'));
+                    membershipTypeInput.value = '';
+                    
+                    showNotification('Registration successful! We have received your details.');
+                } else {
+                    throw new Error('Failed to send registration email');
                 }
-                
-                // Send to WhatsApp
-                sendToWhatsApp(data);
-                
-                // Show success modal
-                registrationModal.classList.remove('active');
-                successModal.classList.add('active');
-                
-                // Mark as visited to prevent showing welcome modal again
-                markAsVisited();
-                
-                // Reset form
-                registrationForm.reset();
-                membershipOptions.forEach(opt => opt.classList.remove('selected'));
-                membershipTypeInput.value = '';
-                
-                showNotification('Registration successful! Opening WhatsApp to send details.');
             } catch (error) {
                 console.error('Registration error:', error);
                 showNotification('Registration failed. Please try again or contact us directly.', 'error');
@@ -1366,6 +1466,9 @@ ${data.goals || 'No specific goals mentioned'}
             
             // Update post times
             updatePostTimes();
+            
+            // Restore interaction states
+            restoreInteractionStates();
         });
 
         // Welcome modal actions
