@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=1.0, user-scalable=no">
+    <title>The Science of Mindfulness - THE SONGA WELFARE</title>
+    <link rel="icon" type="image/x-icon" href="https://i.postimg.cc/QCfkMpcM/20251121-1617-Golden-Lion-Emblem-remix-01kak8vrfpfb9r1335qyg8w1gt.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F5E6B3;
+            --gold-dark: #B8860B;
+            --black: #000000;
+            --white: #ffffff;
+            --gray: #f5f5f5;
+            --dark-gray: #333333;
+            --light-gray: #e0e0e0;
+            --accent: #25D366;
+            --whatsapp-green: #25D366;
+            --whatsapp-dark: #128C7E;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--white);
+            color: var(--black);
+            line-height: 1.6;
+            padding-bottom: 70px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--white);
+            color: var(--black);
+            padding: 0.5rem 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid var(--light-gray);
+            height: 60px;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .brand-name {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-left: 10px;
+            color: var(--gold-dark);
+        }
+
+        .auth-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .join-btn {
+            background-color: var(--gold);
+            color: var(--black);
+            border: none;
+            border-radius: 4px;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .join-btn:hover {
+            background-color: var(--gold-dark);
+            color: var(--white);
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        /* Article Header */
+        .article-header {
+            margin: 2rem 0 3rem;
+            text-align: center;
+        }
+
+        .article-category {
+            color: var(--gold);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .article-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            color: var(--black);
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+        }
+
+        .article-author {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .author-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .author-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .article-featured-image {
+            width: 100%;
+            height: 400px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .article-featured-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Article Content */
+        .article-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--dark-gray);
+        }
+
+        .article-content h2 {
+            font-size: 1.8rem;
+            margin: 2.5rem 0 1rem;
+            color: var(--black);
+            border-bottom: 2px solid var(--gold-light);
+            padding-bottom: 0.5rem;
+        }
+
+        .article-content h3 {
+            font-size: 1.4rem;
+            margin: 2rem 0 1rem;
+            color: var(--black);
+        }
+
+        .article-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .article-content blockquote {
+            border-left: 4px solid var(--gold);
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: var(--dark-gray);
+            background-color: var(--gold-light);
+            padding: 1.5rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .article-content ul, .article-content ol {
+            margin: 1.5rem 0;
+            padding-left: 2rem;
+        }
+
+        .article-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .article-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .article-content .image-caption {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+            margin-top: -1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Key Takeaways */
+        .key-takeaways {
+            background-color: var(--gold-light);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 3rem 0;
+            border-left: 4px solid var(--gold);
+        }
+
+        .key-takeaways h3 {
+            color: var(--gold-dark);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .key-takeaways ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .key-takeaways li {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .key-takeaways li:before {
+            content: "•";
+            color: var(--gold);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Article Actions */
+        .article-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 3rem 0;
+            padding: 1.5rem 0;
+            border-top: 1px solid var(--light-gray);
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .action-btn {
+            background: none;
+            border: 1px solid var(--light-gray);
+            border-radius: 6px;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .action-btn:hover {
+            background-color: var(--gray);
+        }
+
+        .action-btn.like.active {
+            background-color: var(--gold-light);
+            border-color: var(--gold);
+            color: var(--gold-dark);
+        }
+
+        .share-btn {
+            background-color: var(--gold);
+            color: var(--black);
+            border: none;
+            border-radius: 6px;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+        }
+
+        .share-btn:hover {
+            background-color: var(--gold-dark);
+            color: var(--white);
+        }
+
+        /* Coffee Support Section */
+        .coffee-support {
+            background-color: var(--gray);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .coffee-support h3 {
+            margin-bottom: 1rem;
+            color: var(--gold-dark);
+        }
+
+        .coffee-support p {
+            margin-bottom: 1.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .coffee-btn {
+            background-color: #6F4E37;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+
+        .coffee-btn:hover {
+            background-color: #5a3e2b;
+        }
+
+        /* Related Articles */
+        .related-articles {
+            margin: 4rem 0 2rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: var(--black);
+            text-align: center;
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .article-card {
+            background-color: var(--white);
+            border: 1px solid var(--light-gray);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .article-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .article-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .article-card:hover .article-image img {
+            transform: scale(1.05);
+        }
+
+        .article-card-content {
+            padding: 1.5rem;
+        }
+
+        .article-card-category {
+            color: var(--dark-gray);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .article-card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .article-card-excerpt {
+            color: var(--dark-gray);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .article-card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .article-card-date {
+            color: var(--dark-gray);
+            font-size: 0.8rem;
+        }
+
+        .article-card-read-time {
+            color: var(--dark-gray);
+            font-size: 0.8rem;
+        }
+
+        .article-card-actions {
+            display: flex;
+        }
+
+        .read-more-btn {
+            flex: 1;
+            background-color: var(--gold);
+            color: var(--black);
+            border: none;
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-weight: 600;
+        }
+
+        .read-more-btn:hover {
+            background-color: var(--gold-dark);
+            color: var(--white);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background-color: var(--gray);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .contact-section h3 {
+            margin-bottom: 1rem;
+            color: var(--gold-dark);
+        }
+
+        .contact-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 1rem;
+        }
+
+        .contact-btn {
+            background-color: var(--gold);
+            color: var(--black);
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s;
+            font-weight: 600;
+        }
+
+        .contact-btn:hover {
+            background-color: var(--gold-dark);
+            color: var(--white);
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--white);
+            display: flex;
+            justify-content: space-around;
+            padding: 0.8rem 0;
+            z-index: 100;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--dark-gray);
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: color 0.3s;
+        }
+
+        .nav-icon {
+            font-size: 1.3rem;
+            margin-bottom: 3px;
+        }
+
+        .nav-item.active {
+            color: var(--gold-dark);
+        }
+
+        .nav-item:hover {
+            color: var(--gold-dark);
+        }
+
+        /* Back to Library */
+        .back-to-library {
+            margin-bottom: 2rem;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--gold-dark);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: var(--gold);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .article-title {
+                font-size: 2rem;
+            }
+            
+            .article-featured-image {
+                height: 300px;
+            }
+            
+            .article-meta {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .article-actions {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+            
+            .action-buttons {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .article-title {
+                font-size: 1.7rem;
+            }
+            
+            .article-featured-image {
+                height: 250px;
+            }
+            
+            .contact-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="https://i.postimg.cc/QCfkMpcM/20251121-1617-Golden-Lion-Emblem-remix-01kak8vrfpfb9r1335qyg8w1gt.png" alt="THE SONGA WELFARE Logo">
+                <div class="brand-name">THE SONGA WELFARE</div>
+            </div>
+            <div class="auth-section">
+                <button class="join-btn" id="headerJoinBtn">
+                    <i class="fas fa-user-plus"></i>
+                    <span>Join Us</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Back to Library -->
+        <div class="back-to-library">
+            <a href="library.html" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                Back to Library
+            </a>
+        </div>
+
+        <!-- Article Header -->
+        <article>
+            <header class="article-header">
+                <div class="article-category">Personal Growth</div>
+                <h1 class="article-title">The Science of Mindfulness and Its Impact on Daily Life</h1>
+                
+                <div class="article-meta">
+                    <div class="article-author">
+                        <div class="author-avatar">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Author">
+                        </div>
+                        <span>By Mugera</span>
+                    </div>
+                    <div class="article-date">November 15, 2025</div>
+                    <div class="article-read-time">8 min read</div>
+                </div>
+
+                <div class="article-featured-image">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Mindfulness Practice">
+                </div>
+            </header>
+
+            <!-- Article Content -->
+            <div class="article-content">
+                <p>In our fast-paced, constantly connected world, the ancient practice of mindfulness has emerged as a powerful tool for mental well-being. But what exactly is mindfulness, and how does it impact our daily lives? This article explores the science behind mindfulness and its practical applications.</p>
+
+                <h2>What is Mindfulness?</h2>
+                
+                <p>Mindfulness is the basic human ability to be fully present, aware of where we are and what we're doing, and not overly reactive or overwhelmed by what's going on around us. While mindfulness is something we all naturally possess, it's more readily available to us when we practice on a daily basis.</p>
+                
+                <blockquote>
+                    "Mindfulness is the aware, balanced acceptance of the present experience. It isn't more complicated than that. It is opening to or receiving the present moment, pleasant or unpleasant, just as it is, without either clinging to it or rejecting it."
+                </blockquote>
+
+                <h2>The Science Behind Mindfulness</h2>
+                
+                <p>Recent neuroscientific research has shown that regular mindfulness practice can literally change the structure and function of our brains. Studies using fMRI technology have demonstrated that mindfulness meditation:</p>
+                
+                <ul>
+                    <li><strong>Increases gray matter density</strong> in brain regions associated with learning, memory, and emotion regulation</li>
+                    <li><strong>Strengthens the prefrontal cortex</strong>, which is responsible for executive functions like focus and decision-making</li>
+                    <li><strong>Reduces activity in the amygdala</strong>, the brain's fear center, leading to decreased stress and anxiety</li>
+                    <li><strong>Enhances connectivity between brain regions</strong>, improving overall cognitive function</li>
+                </ul>
+
+                <div class="key-takeaways">
+                    <h3><i class="fas fa-lightbulb"></i> Key Takeaways</h3>
+                    <ul>
+                        <li>Mindfulness is not about emptying your mind, but about paying attention to the present moment without judgment</li>
+                        <li>Regular practice can reduce stress, improve focus, and enhance emotional regulation</li>
+                        <li>You don't need special equipment or extensive training to start practicing mindfulness</li>
+                        <li>Even a few minutes of daily practice can yield significant benefits over time</li>
+                    </ul>
+                </div>
+
+                <h2>Practical Applications in Daily Life</h2>
+                
+                <h3>1. Mindful Breathing</h3>
+                <p>This simple practice involves focusing your attention on your breath—the inhalation and exhalation. You can do this anywhere, anytime. When your mind wanders, gently return your focus to your breath without judgment.</p>
+                
+                <h3>2. Mindful Eating</h3>
+                <p>Instead of eating while distracted (watching TV, working, etc.), try focusing all your attention on the experience of eating. Notice the colors, textures, smells, and flavors of your food. This not only enhances enjoyment but can also improve digestion and prevent overeating.</p>
+                
+                <h3>3. Mindful Walking</h3>
+                <p>Pay attention to the physical sensations of walking—the feeling of your feet touching the ground, the movement of your muscles, the rhythm of your breath. This can transform a simple walk into a meditative practice.</p>
+
+                <h2>Getting Started with Mindfulness</h2>
+                
+                <p>Beginning a mindfulness practice doesn't require special equipment or extensive training. Here are some simple steps to get started:</p>
+                
+                <ol>
+                    <li><strong>Start small</strong> – Begin with just 5-10 minutes per day</li>
+                    <li><strong>Find a quiet space</strong> – Choose a place where you won't be interrupted</li>
+                    <li><strong>Focus on your breath</strong> – Pay attention to the sensation of breathing</li>
+                    <li><strong>Be kind to yourself</strong> – When your mind wanders (which it will), gently bring it back without criticism</li>
+                    <li><strong>Practice regularly</strong> – Consistency is more important than duration</li>
+                </ol>
+
+                <p>Remember, mindfulness is a skill that develops with practice. Be patient with yourself and recognize that some days will be easier than others. The important thing is to keep showing up for the practice.</p>
+            </div>
+
+            <!-- Article Actions -->
+            <div class="article-actions">
+                <div class="action-buttons">
+                    <button class="action-btn like" id="likeBtn">
+                        <i class="far fa-heart"></i>
+                        <span id="likeCount">24</span> Likes
+                    </button>
+                    <button class="action-btn bookmark" id="bookmarkBtn">
+                        <i class="far fa-bookmark"></i>
+                        Save
+                    </button>
+                </div>
+                <button class="share-btn" id="shareBtn">
+                    <i class="fas fa-share-alt"></i>
+                    Share Article
+                </button>
+            </div>
+
+            <!-- Coffee Support Section -->
+            <div class="coffee-support">
+                <h3>Enjoyed This Article?</h3>
+                <p>If this content added value to your life, consider supporting the author by buying them a coffee. Your support helps create more valuable content like this.</p>
+                <button class="coffee-btn" id="coffeeBtn">
+                    <i class="fas fa-coffee"></i>
+                    Buy Author a Coffee
+                </button>
+            </div>
+        </article>
+
+        <!-- Related Articles -->
+        <section class="related-articles">
+            <h2 class="section-title">Related Articles</h2>
+            <div class="articles-grid">
+                <!-- Related Article 1 -->
+                <div class="article-card">
+                    <div class="article-image">
+                        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Meditation">
+                    </div>
+                    <div class="article-card-content">
+                        <div class="article-card-category">Spirituality</div>
+                        <h3 class="article-card-title">The Ancient Practice of Meditation: Modern Applications</h3>
+                        <p class="article-card-excerpt">Explore how ancient meditation techniques are being validated by modern science and how you can incorporate them into your daily routine.</p>
+                        <div class="article-card-meta">
+                            <div class="article-card-date">Nov 5, 2025</div>
+                            <div class="article-card-read-time">10 min read</div>
+                        </div>
+                        <div class="article-card-actions">
+                            <button class="read-more-btn">
+                                <i class="fas fa-book-reader"></i>
+                                Read Article
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Related Article 2 -->
+                <div class="article-card">
+                    <div class="article-image">
+                        <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Entrepreneurship">
+                    </div>
+                    <div class="article-card-content">
+                        <div class="article-card-category">Business</div>
+                        <h3 class="article-card-title">Building a Sustainable Business in the Digital Age</h3>
+                        <p class="article-card-excerpt">Learn the key principles for creating businesses that not only generate profit but also create positive social impact.</p>
+                        <div class="article-card-meta">
+                            <div class="article-card-date">Nov 10, 2025</div>
+                            <div class="article-card-read-time">12 min read</div>
+                        </div>
+                        <div class="article-card-actions">
+                            <button class="read-more-btn">
+                                <i class="fas fa-book-reader"></i>
+                                Read Article
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <div class="contact-section">
+            <h3>Want More Content?</h3>
+            <p>Explore our library or get in touch with us for personalized recommendations:</p>
+            <div class="contact-buttons">
+                <a href="library.html" class="contact-btn">
+                    <i class="fas fa-book"></i> Browse Library
+                </a>
+                <a href="https://wa.me/254727211191" class="contact-btn">
+                    <i class="fab fa-whatsapp"></i> WhatsApp
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item">
+            <i class="fas fa-home nav-icon"></i>
+            <span>Home</span>
+        </a>
+        <a href="events.html" class="nav-item">
+            <i class="fas fa-calendar-alt nav-icon"></i>
+            <span>Events</span>
+        </a>
+        <a href="library.html" class="nav-item active">
+            <i class="fas fa-book nav-icon"></i>
+            <span>Library</span>
+        </a>
+        <a href="about.html" class="nav-item">
+            <i class="fas fa-info-circle nav-icon"></i>
+            <span>About</span>
+        </a>
+    </nav>
+
+    <script>
+        // DOM Elements
+        const headerJoinBtn = document.getElementById('headerJoinBtn');
+        const likeBtn = document.getElementById('likeBtn');
+        const likeCount = document.getElementById('likeCount');
+        const bookmarkBtn = document.getElementById('bookmarkBtn');
+        const shareBtn = document.getElementById('shareBtn');
+        const coffeeBtn = document.getElementById('coffeeBtn');
+        const readMoreBtns = document.querySelectorAll('.read-more-btn');
+
+        // Header Join Us button
+        headerJoinBtn.addEventListener('click', function() {
+            // This would open the membership modal in a complete implementation
+            alert('This would open the membership registration form');
+        });
+
+        // Like button functionality
+        let likes = 24;
+        let isLiked = false;
+
+        likeBtn.addEventListener('click', function() {
+            if (!isLiked) {
+                likes++;
+                likeCount.textContent = likes;
+                likeBtn.classList.add('active');
+                likeBtn.innerHTML = '<i class="fas fa-heart"></i> ' + likes + ' Likes';
+                isLiked = true;
+            } else {
+                likes--;
+                likeCount.textContent = likes;
+                likeBtn.classList.remove('active');
+                likeBtn.innerHTML = '<i class="far fa-heart"></i> ' + likes + ' Likes';
+                isLiked = false;
+            }
+        });
+
+        // Bookmark button functionality
+        let isBookmarked = false;
+
+        bookmarkBtn.addEventListener('click', function() {
+            if (!isBookmarked) {
+                bookmarkBtn.classList.add('active');
+                bookmarkBtn.innerHTML = '<i class="fas fa-bookmark"></i> Saved';
+                isBookmarked = true;
+            } else {
+                bookmarkBtn.classList.remove('active');
+                bookmarkBtn.innerHTML = '<i class="far fa-bookmark"></i> Save';
+                isBookmarked = false;
+            }
+        });
+
+        // Share button functionality
+        shareBtn.addEventListener('click', function() {
+            if (navigator.share) {
+                navigator.share({
+                    title: document.title,
+                    text: 'Check out this article from THE SONGA WELFARE',
+                    url: window.location.href
+                })
+                .then(() => console.log('Successful share'))
+                .catch((error) => console.log('Error sharing:', error));
+            } else {
+                // Fallback for browsers that don't support the Web Share API
+                const shareUrl = window.location.href;
+                navigator.clipboard.writeText(shareUrl)
+                    .then(() => {
+                        alert('Article link copied to clipboard!');
+                    })
+                    .catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+            }
+        });
+
+        // Coffee button functionality
+        coffeeBtn.addEventListener('click', function() {
+            const message = "Hi Mugera, I enjoyed your article and would like to buy you a coffee to support your work!";
+            window.open(`https://wa.me/254727211191?text=${encodeURIComponent(message)}`, '_blank');
+        });
+
+        // Read more buttons for related articles
+        readMoreBtns.forEach(button => {
+            button.addEventListener('click', function() {
+                const articleCard = this.closest('.article-card');
+                const articleTitle = articleCard.querySelector('.article-card-title').textContent;
+                
+                // In a real implementation, this would navigate to the article page
+                alert(`This would navigate to the article: "${articleTitle}"`);
+            });
+        });
+
+        // Add some interactive animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const articleContent = document.querySelector('.article-content');
+            const relatedArticles = document.querySelectorAll('.article-card');
+            
+            // Animate article content
+            articleContent.style.opacity = '0';
+            articleContent.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                articleContent.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                articleContent.style.opacity = '1';
+                articleContent.style.transform = 'translateY(0)';
+            }, 300);
+            
+            // Animate related articles
+            relatedArticles.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 600 + (index * 200));
+            });
+        });
+    </script>
+</body>
+</html>
