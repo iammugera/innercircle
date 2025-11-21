@@ -283,7 +283,7 @@
             color: var(--white);
         }
 
-        /* Registration Modal */
+        /* Registration Modals */
         .registration-modal {
             display: none;
             position: fixed;
@@ -366,6 +366,60 @@
 
         .form-row .form-group {
             flex: 1;
+        }
+
+        .membership-options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin: 1.5rem 0;
+        }
+
+        .membership-option {
+            border: 2px solid var(--light-gray);
+            border-radius: 8px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .membership-option.selected {
+            border-color: var(--gold);
+            background-color: rgba(212, 175, 55, 0.05);
+        }
+
+        .membership-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .membership-name {
+            font-weight: bold;
+            color: var(--gold-dark);
+        }
+
+        .membership-price {
+            font-weight: bold;
+            color: var(--gold);
+        }
+
+        .membership-features {
+            list-style: none;
+        }
+
+        .membership-features li {
+            padding: 5px 0;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .membership-features li i {
+            color: var(--gold);
+            font-size: 0.8rem;
         }
 
         .submit-btn {
@@ -590,6 +644,10 @@
             .event-actions {
                 flex-direction: row;
             }
+            
+            .membership-options {
+                grid-template-columns: 1fr 1fr;
+            }
         }
 
         @media (max-width: 480px) {
@@ -614,158 +672,50 @@
     <!-- Notification -->
     <div class="notification" id="notification"></div>
 
-    <!-- Registration Modal -->
-    <div class="registration-modal" id="registrationModal">
-        <div class="registration-content">
-            <div class="registration-header">
-                <h2>Register for Event</h2>
-                <p id="eventModalTitle">Complete your registration</p>
-                <button class="close-modal" id="closeRegistrationModal">&times;</button>
-            </div>
-            <div class="registration-body">
-                <form id="registrationForm">
-                    <input type="hidden" id="eventName" name="eventName">
-                    <input type="hidden" id="eventDate" name="eventDate">
-                    <input type="hidden" id="eventLocation" name="eventLocation">
-                    <input type="hidden" id="eventPrice" name="eventPrice">
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="firstName">First Name</label>
-                            <input type="text" id="firstName" name="firstName" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="lastName">Last Name</label>
-                            <input type="text" id="lastName" name="lastName" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="location">Your Location</label>
-                        <input type="text" id="location" name="location" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="occupation">Occupation</label>
-                        <input type="text" id="occupation" name="occupation" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="hearAbout">How did you hear about this event?</label>
-                        <select id="hearAbout" name="hearAbout" required>
-                            <option value="">Select an option</option>
-                            <option value="social-media">Social Media</option>
-                            <option value="friend">Friend/Colleague</option>
-                            <option value="website">THE SONGA WELFARE Website</option>
-                            <option value="previous-event">Previous Event</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="expectations">What do you hope to gain from this event?</label>
-                        <textarea id="expectations" name="expectations" rows="3" placeholder="Tell us about your expectations and what you hope to learn..."></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="dietary">Any dietary restrictions or special requirements?</label>
-                        <textarea id="dietary" name="dietary" rows="2" placeholder="For dining events, please let us know about any dietary restrictions..."></textarea>
-                    </div>
-                    
-                    <button type="submit" class="submit-btn" id="submitRegistration">
-                        <i class="fas fa-paper-plane"></i> Complete Registration
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Success Modal -->
-    <div class="success-modal" id="successModal">
-        <div class="success-content">
-            <div class="success-icon">
-                <i class="fas fa-check-circle"></i>
-            </div>
-            <h2>Registration Successful!</h2>
-            <p>Thank you for registering for our event. We're excited to have you join us.</p>
-            <p>We'll contact you shortly with more details about the event.</p>
-            <button class="btn btn-primary" id="closeSuccessModal">
-                <i class="fas fa-thumbs-up"></i> Awesome!
-            </button>
-        </div>
-    </div>
-
-    <!-- Header -->
-    <!-- Update the header section in events.html with this code -->
-<header>
-    <div class="header-container">
-        <div class="logo">
-            <img src="https://i.postimg.cc/QCfkMpcM/20251121-1617-Golden-Lion-Emblem-remix-01kak8vrfpfb9r1335qyg8w1gt.png" alt="THE SONGA WELFARE Logo">
-            <div class="brand-name">THE SONGA WELFARE</div>
-        </div>
-        <div class="auth-section">
-            <button class="join-btn" id="headerJoinBtn">
-                <i class="fas fa-user-plus"></i>
-                <span>Join Us</span>
-            </button>
-        </div>
-    </div>
-    </header>
-    
-    <!-- Add this registration modal to events.html (same as in index.html) -->
-    <div class="registration-modal" id="registrationModal">
+    <!-- Membership Registration Modal -->
+    <div class="registration-modal" id="membershipModal">
         <div class="registration-content">
             <div class="registration-header">
                 <h2>Join THE SONGA WELFARE</h2>
-                <p>Complete your registration to access all benefits</p>
-                <button class="close-modal" id="closeRegistrationModal">&times;</button>
+                <p>Complete your membership registration to access all benefits</p>
+                <button class="close-modal" id="closeMembershipModal">&times;</button>
             </div>
             <div class="registration-body">
-                <form id="registrationForm">
+                <form id="membershipForm">
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="firstName">First Name</label>
-                            <input type="text" id="firstName" name="firstName" required>
+                            <label for="membershipFirstName">First Name</label>
+                            <input type="text" id="membershipFirstName" name="firstName" required>
                         </div>
                         <div class="form-group">
-                            <label for="lastName">Last Name</label>
-                            <input type="text" id="lastName" name="lastName" required>
+                            <label for="membershipLastName">Last Name</label>
+                            <input type="text" id="membershipLastName" name="lastName" required>
                         </div>
                     </div>
                     
                     <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" required>
+                        <label for="membershipEmail">Email Address</label>
+                        <input type="email" id="membershipEmail" name="email" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone" required>
+                        <label for="membershipPhone">Phone Number</label>
+                        <input type="tel" id="membershipPhone" name="phone" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="location">Location</label>
-                        <input type="text" id="location" name="location" required>
+                        <label for="membershipLocation">Location</label>
+                        <input type="text" id="membershipLocation" name="location" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="occupation">Occupation</label>
-                        <input type="text" id="occupation" name="occupation" required>
+                        <label for="membershipOccupation">Occupation</label>
+                        <input type="text" id="membershipOccupation" name="occupation" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="hearAbout">How did you hear about us?</label>
-                        <select id="hearAbout" name="hearAbout" required>
+                        <label for="membershipHearAbout">How did you hear about us?</label>
+                        <select id="membershipHearAbout" name="hearAbout" required>
                             <option value="">Select an option</option>
                             <option value="social-media">Social Media</option>
                             <option value="friend">Friend/Colleague</option>
@@ -808,17 +758,124 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="goals">What are your personal development goals?</label>
-                        <textarea id="goals" name="goals" rows="3" placeholder="Tell us about what you hope to achieve by joining our community..."></textarea>
+                        <label for="membershipGoals">What are your personal development goals?</label>
+                        <textarea id="membershipGoals" name="goals" rows="3" placeholder="Tell us about what you hope to achieve by joining our community..."></textarea>
                     </div>
                     
-                    <button type="submit" class="submit-btn" id="submitRegistration">
-                        <i class="fas fa-paper-plane"></i> Complete Registration
+                    <button type="submit" class="submit-btn" id="submitMembership">
+                        <i class="fas fa-paper-plane"></i> Complete Membership Registration
                     </button>
                 </form>
             </div>
         </div>
     </div>
+
+    <!-- Event Registration Modal -->
+    <div class="registration-modal" id="eventRegistrationModal">
+        <div class="registration-content">
+            <div class="registration-header">
+                <h2>Register for Event</h2>
+                <p id="eventModalTitle">Complete your registration</p>
+                <button class="close-modal" id="closeEventModal">&times;</button>
+            </div>
+            <div class="registration-body">
+                <form id="eventRegistrationForm">
+                    <input type="hidden" id="eventName" name="eventName">
+                    <input type="hidden" id="eventDate" name="eventDate">
+                    <input type="hidden" id="eventLocation" name="eventLocation">
+                    <input type="hidden" id="eventPrice" name="eventPrice">
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="eventFirstName">First Name</label>
+                            <input type="text" id="eventFirstName" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="eventLastName">Last Name</label>
+                            <input type="text" id="eventLastName" name="lastName" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="eventEmail">Email Address</label>
+                        <input type="email" id="eventEmail" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="eventPhone">Phone Number</label>
+                        <input type="tel" id="eventPhone" name="phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="eventUserLocation">Your Location</label>
+                        <input type="text" id="eventUserLocation" name="location" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="eventOccupation">Occupation</label>
+                        <input type="text" id="eventOccupation" name="occupation" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="eventHearAbout">How did you hear about this event?</label>
+                        <select id="eventHearAbout" name="hearAbout" required>
+                            <option value="">Select an option</option>
+                            <option value="social-media">Social Media</option>
+                            <option value="friend">Friend/Colleague</option>
+                            <option value="website">THE SONGA WELFARE Website</option>
+                            <option value="previous-event">Previous Event</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="eventExpectations">What do you hope to gain from this event?</label>
+                        <textarea id="eventExpectations" name="expectations" rows="3" placeholder="Tell us about your expectations and what you hope to learn..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="eventDietary">Any dietary restrictions or special requirements?</label>
+                        <textarea id="eventDietary" name="dietary" rows="2" placeholder="For dining events, please let us know about any dietary restrictions..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn" id="submitEventRegistration">
+                        <i class="fas fa-paper-plane"></i> Complete Event Registration
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="success-modal" id="successModal">
+        <div class="success-content">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>Registration Successful!</h2>
+            <p>Thank you for your registration. We're excited to have you!</p>
+            <p>We'll contact you shortly with more details.</p>
+            <button class="btn btn-primary" id="closeSuccessModal">
+                <i class="fas fa-thumbs-up"></i> Awesome!
+            </button>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="https://i.postimg.cc/QCfkMpcM/20251121-1617-Golden-Lion-Emblem-remix-01kak8vrfpfb9r1335qyg8w1gt.png" alt="THE SONGA WELFARE Logo">
+                <div class="brand-name">THE SONGA WELFARE</div>
+            </div>
+            <div class="auth-section">
+                <button class="join-btn" id="headerJoinBtn">
+                    <i class="fas fa-user-plus"></i>
+                    <span>Join Us</span>
+                </button>
+            </div>
+        </div>
+    </header>
 
     <!-- Main Content -->
     <main class="container">
@@ -859,7 +916,7 @@
                     </div>
                     
                     <div class="event-actions">
-                        <button class="btn btn-primary register-btn" 
+                        <button class="btn btn-primary register-event-btn" 
                                 data-event="Mugs and Dines: Relationships & Communication"
                                 data-date="December 15, 2025 | 6:00 PM - 9:00 PM"
                                 data-location="The Signature Restaurant, Nairobi"
@@ -903,7 +960,7 @@
                     </div>
                     
                     <div class="event-actions">
-                        <button class="btn btn-primary register-btn" 
+                        <button class="btn btn-primary register-event-btn" 
                                 data-event="Men's Awakening Circle"
                                 data-date="January 12, 2026 | 2:00 PM - 5:00 PM"
                                 data-location="THE SONGA WELFARE Center, Westlands"
@@ -947,7 +1004,7 @@
                     </div>
                     
                     <div class="event-actions">
-                        <button class="btn btn-primary register-btn" 
+                        <button class="btn btn-primary register-event-btn" 
                                 data-event="Life Coaching Workshop: Purpose Discovery"
                                 data-date="February 8, 2026 | 9:00 AM - 1:00 PM"
                                 data-location="THE SONGA WELFARE Center, Westlands"
@@ -1038,11 +1095,11 @@
             <h3>Have Questions About Our Events?</h3>
             <p>Contact us directly for more information or custom event inquiries:</p>
             <div class="contact-buttons">
+                <button class="contact-btn" id="contactJoinBtn">
+                    <i class="fas fa-user-plus"></i> Join Membership
+                </button>
                 <a href="https://wa.me/254727211191" class="contact-btn">
                     <i class="fab fa-whatsapp"></i> WhatsApp
-                </a>
-                <a href="mailto:events@thesongawelfare.com" class="contact-btn">
-                    <i class="fas fa-envelope"></i> Email
                 </a>
             </div>
         </div>
@@ -1070,23 +1127,30 @@
 
     <script>
         // Configuration
-        const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbwCo8RkC1zka9RxW1YiDxuPzzCPWqtl2_ZqE_TlBDxLYFFMxHCLoTVZz6nBUR_SaAVC7w/exec';
         const WHATSAPP_NUMBER = '254727211191';
         
         // DOM Elements
-        const registrationModal = document.getElementById('registrationModal');
+        const membershipModal = document.getElementById('membershipModal');
+        const eventRegistrationModal = document.getElementById('eventRegistrationModal');
         const successModal = document.getElementById('successModal');
-        const closeRegistrationModal = document.getElementById('closeRegistrationModal');
+        const closeMembershipModal = document.getElementById('closeMembershipModal');
+        const closeEventModal = document.getElementById('closeEventModal');
         const closeSuccessModal = document.getElementById('closeSuccessModal');
-        const registrationForm = document.getElementById('registrationForm');
-        const submitRegistration = document.getElementById('submitRegistration');
+        const headerJoinBtn = document.getElementById('headerJoinBtn');
+        const contactJoinBtn = document.getElementById('contactJoinBtn');
+        const membershipForm = document.getElementById('membershipForm');
+        const eventRegistrationForm = document.getElementById('eventRegistrationForm');
+        const submitMembership = document.getElementById('submitMembership');
+        const submitEventRegistration = document.getElementById('submitEventRegistration');
         const notification = document.getElementById('notification');
         const eventModalTitle = document.getElementById('eventModalTitle');
         const eventNameInput = document.getElementById('eventName');
         const eventDateInput = document.getElementById('eventDate');
         const eventLocationInput = document.getElementById('eventLocation');
         const eventPriceInput = document.getElementById('eventPrice');
-        const registerButtons = document.querySelectorAll('.register-btn');
+        const registerEventButtons = document.querySelectorAll('.register-event-btn');
+        const membershipOptions = document.querySelectorAll('.membership-option');
+        const membershipTypeInput = document.getElementById('membershipType');
 
         // Show notification
         function showNotification(message, type = 'success') {
@@ -1112,9 +1176,71 @@
             button.innerHTML = originalText || 'Complete Registration';
         }
 
-        // Format event registration data for WhatsApp message
-        function formatWhatsAppMessage(data) {
-            return `🎟️ *NEW EVENT REGISTRATION - THE SONGA WELFARE* 🎟️
+        // Header Join Us button - opens MEMBERSHIP form
+        headerJoinBtn.addEventListener('click', function() {
+            membershipModal.classList.add('active');
+        });
+
+        // Contact section Join Membership button
+        contactJoinBtn.addEventListener('click', function() {
+            membershipModal.classList.add('active');
+        });
+
+        // Event registration
+        registerEventButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const eventName = this.getAttribute('data-event');
+                const eventDate = this.getAttribute('data-date');
+                const eventLocation = this.getAttribute('data-location');
+                const eventPrice = this.getAttribute('data-price');
+                
+                eventNameInput.value = eventName;
+                eventDateInput.value = eventDate;
+                eventLocationInput.value = eventLocation;
+                eventPriceInput.value = eventPrice;
+                
+                eventModalTitle.textContent = `Register for: ${eventName}`;
+                eventRegistrationModal.classList.add('active');
+            });
+        });
+
+        // Membership selection
+        membershipOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                membershipOptions.forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+                membershipTypeInput.value = this.getAttribute('data-value');
+            });
+        });
+
+        // Format membership data for WhatsApp message
+        function formatMembershipWhatsAppMessage(data) {
+            const membershipText = data.membershipType === 'basic' ? 'Basic Membership (KSh 1,500/month)' : 'Premium Membership (KSh 3,000/month)';
+            
+            return `🎉 *MEMBERSHIP REGISTRATION - THE SONGA WELFARE* 🎉
+
+*Personal Details:*
+👤 Name: ${data.firstName} ${data.lastName}
+📧 Email: ${data.email}
+📞 Phone: ${data.phone}
+📍 Location: ${data.location}
+💼 Occupation: ${data.occupation}
+
+*Membership Information:*
+📋 Selected: ${membershipText}
+🔍 Heard About Us: ${data.hearAbout}
+
+*Goals & Expectations:*
+${data.goals || 'No specific goals mentioned'}
+
+*Registration Details:*
+📅 Registered: ${new Date().toLocaleString()}
+🌐 Source: Events Page Membership Registration`;
+        }
+
+        // Format event data for WhatsApp message
+        function formatEventWhatsAppMessage(data) {
+            return `🎟️ *EVENT REGISTRATION - THE SONGA WELFARE* 🎟️
 
 *Event Details:*
 📅 Event: ${data.eventName}
@@ -1140,89 +1266,85 @@
         }
 
         // Send data to WhatsApp
-        function sendToWhatsApp(data) {
-            const message = formatWhatsAppMessage(data);
+        function sendToWhatsApp(message) {
             const encodedMessage = encodeURIComponent(message);
             const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
-            
-            // Open WhatsApp in a new tab
             window.open(whatsappUrl, '_blank');
         }
 
-        // Event registration
-        registerButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const eventName = this.getAttribute('data-event');
-                const eventDate = this.getAttribute('data-date');
-                const eventLocation = this.getAttribute('data-location');
-                const eventPrice = this.getAttribute('data-price');
-                
-                eventNameInput.value = eventName;
-                eventDateInput.value = eventDate;
-                eventLocationInput.value = eventLocation;
-                eventPriceInput.value = eventPrice;
-                
-                eventModalTitle.textContent = `Register for: ${eventName}`;
-                registrationModal.classList.add('active');
-            });
-        });
-
-        // Form submission
-        registrationForm.addEventListener('submit', async function(e) {
+        // Membership form submission
+        membershipForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Get form data
+            if (!membershipTypeInput.value) {
+                showNotification('Please select a membership option', 'error');
+                return;
+            }
+            
             const formData = new FormData(this);
             const data = Object.fromEntries(formData);
+            data.timestamp = new Date().toISOString();
+            data.source = 'events_page_membership';
             
-            // Add timestamp and source
+            try {
+                showLoading(submitMembership);
+                
+                const message = formatMembershipWhatsAppMessage(data);
+                sendToWhatsApp(message);
+                
+                membershipModal.classList.remove('active');
+                successModal.classList.add('active');
+                
+                membershipForm.reset();
+                membershipOptions.forEach(opt => opt.classList.remove('selected'));
+                membershipTypeInput.value = '';
+                
+                showNotification('Membership registration successful! Opening WhatsApp to send details.');
+            } catch (error) {
+                console.error('Membership registration error:', error);
+                showNotification('Registration failed. Please try again or contact us directly.', 'error');
+            } finally {
+                hideLoading(submitMembership);
+            }
+        });
+
+        // Event form submission
+        eventRegistrationForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
             data.timestamp = new Date().toISOString();
             data.source = 'event_registration';
             data.type = 'event';
             
             try {
-                showLoading(submitRegistration);
+                showLoading(submitEventRegistration);
                 
-                // Send to Google Apps Script (optional - for backup)
-                try {
-                    const response = await fetch(BACKEND_URL, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(data)
-                    });
-                    
-                    const result = await response.json();
-                    if (!result.success) {
-                        console.warn('Backup storage failed, but continuing with WhatsApp');
-                    }
-                } catch (backupError) {
-                    console.warn('Backup storage failed, but continuing with WhatsApp');
-                }
+                const message = formatEventWhatsAppMessage(data);
+                sendToWhatsApp(message);
                 
-                // Send to WhatsApp
-                sendToWhatsApp(data);
-                
-                // Show success modal
-                registrationModal.classList.remove('active');
+                eventRegistrationModal.classList.remove('active');
                 successModal.classList.add('active');
                 
-                // Reset form
-                registrationForm.reset();
+                eventRegistrationForm.reset();
                 
                 showNotification('Event registration successful! Opening WhatsApp to send details.');
             } catch (error) {
-                console.error('Registration error:', error);
+                console.error('Event registration error:', error);
                 showNotification('Registration failed. Please try again or contact us directly.', 'error');
             } finally {
-                hideLoading(submitRegistration);
+                hideLoading(submitEventRegistration);
             }
         });
 
         // Close modals
-        closeRegistrationModal.addEventListener('click', function() {
-            registrationModal.classList.remove('active');
+        closeMembershipModal.addEventListener('click', function() {
+            membershipModal.classList.remove('active');
+        });
+
+        closeEventModal.addEventListener('click', function() {
+            eventRegistrationModal.classList.remove('active');
         });
 
         closeSuccessModal.addEventListener('click', function() {
@@ -1230,9 +1352,15 @@
         });
 
         // Close modals when clicking outside
-        registrationModal.addEventListener('click', function(e) {
-            if (e.target === registrationModal) {
-                registrationModal.classList.remove('active');
+        membershipModal.addEventListener('click', function(e) {
+            if (e.target === membershipModal) {
+                membershipModal.classList.remove('active');
+            }
+        });
+
+        eventRegistrationModal.addEventListener('click', function(e) {
+            if (e.target === eventRegistrationModal) {
+                eventRegistrationModal.classList.remove('active');
             }
         });
 
@@ -1241,12 +1369,6 @@
                 successModal.classList.remove('active');
             }
         });
-         const headerJoinBtn = document.getElementById('headerJoinBtn');
-    
-    // Header Join Us button
-    headerJoinBtn.addEventListener('click', function() {
-        registrationModal.classList.add('active');
-    });
     </script>
 </body>
 </html>
