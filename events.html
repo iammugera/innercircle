@@ -706,20 +706,119 @@
     </div>
 
     <!-- Header -->
-    <header>
-        <div class="header-container">
-            <div class="logo">
-                <img src="https://i.postimg.cc/QCfkMpcM/20251121-1617-Golden-Lion-Emblem-remix-01kak8vrfpfb9r1335qyg8w1gt.png" alt="THE SONGA WELFARE Logo">
-                <div class="brand-name">THE SONGA WELFARE</div>
+    <!-- Update the header section in events.html with this code -->
+<header>
+    <div class="header-container">
+        <div class="logo">
+            <img src="https://i.postimg.cc/QCfkMpcM/20251121-1617-Golden-Lion-Emblem-remix-01kak8vrfpfb9r1335qyg8w1gt.png" alt="THE SONGA WELFARE Logo">
+            <div class="brand-name">THE SONGA WELFARE</div>
+        </div>
+        <div class="auth-section">
+            <button class="join-btn" id="headerJoinBtn">
+                <i class="fas fa-user-plus"></i>
+                <span>Join Us</span>
+            </button>
+        </div>
+    </div>
+    </header>
+    
+    <!-- Add this registration modal to events.html (same as in index.html) -->
+    <div class="registration-modal" id="registrationModal">
+        <div class="registration-content">
+            <div class="registration-header">
+                <h2>Join THE SONGA WELFARE</h2>
+                <p>Complete your registration to access all benefits</p>
+                <button class="close-modal" id="closeRegistrationModal">&times;</button>
             </div>
-            <div class="auth-section">
-                <a href="https://wa.me/254727211191?text=Hi%20Mugera,%20I%20want%20to%20join%20your%20community" class="join-btn" target="_blank">
-                    <i class="fab fa-whatsapp"></i>
-                    <span>Join Us</span>
-                </a>
+            <div class="registration-body">
+                <form id="registrationForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <input type="text" id="location" name="location" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="occupation">Occupation</label>
+                        <input type="text" id="occupation" name="occupation" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="hearAbout">How did you hear about us?</label>
+                        <select id="hearAbout" name="hearAbout" required>
+                            <option value="">Select an option</option>
+                            <option value="social-media">Social Media</option>
+                            <option value="friend">Friend/Colleague</option>
+                            <option value="event">Event</option>
+                            <option value="search">Online Search</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Select Your Membership</label>
+                        <div class="membership-options">
+                            <div class="membership-option" data-value="basic">
+                                <div class="membership-header">
+                                    <span class="membership-name">Basic Membership</span>
+                                    <span class="membership-price">KSh 1,500/month</span>
+                                </div>
+                                <ul class="membership-features">
+                                    <li><i class="fas fa-check"></i> E-library Basic Access</li>
+                                    <li><i class="fas fa-check"></i> Monthly Life Coaching Events</li>
+                                    <li><i class="fas fa-check"></i> Team Building Events</li>
+                                    <li><i class="fas fa-check"></i> Community Access</li>
+                                </ul>
+                            </div>
+                            <div class="membership-option" data-value="premium">
+                                <div class="membership-header">
+                                    <span class="membership-name">Premium Membership</span>
+                                    <span class="membership-price">KSh 3,000/month</span>
+                                </div>
+                                <ul class="membership-features">
+                                    <li><i class="fas fa-check"></i> All Basic Benefits</li>
+                                    <li><i class="fas fa-check"></i> Advanced E-library Access</li>
+                                    <li><i class="fas fa-check"></i> One-on-One Coaching Sessions</li>
+                                    <li><i class="fas fa-check"></i> Priority Event Registration</li>
+                                    <li><i class="fas fa-check"></i> Exclusive Content</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <input type="hidden" id="membershipType" name="membershipType" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="goals">What are your personal development goals?</label>
+                        <textarea id="goals" name="goals" rows="3" placeholder="Tell us about what you hope to achieve by joining our community..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn" id="submitRegistration">
+                        <i class="fas fa-paper-plane"></i> Complete Registration
+                    </button>
+                </form>
             </div>
         </div>
-    </header>
+    </div>
 
     <!-- Main Content -->
     <main class="container">
@@ -1142,6 +1241,12 @@
                 successModal.classList.remove('active');
             }
         });
+         const headerJoinBtn = document.getElementById('headerJoinBtn');
+    
+    // Header Join Us button
+    headerJoinBtn.addEventListener('click', function() {
+        registrationModal.classList.add('active');
+    });
     </script>
 </body>
 </html>
