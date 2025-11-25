@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Portal - THE SONGA WELFARE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F5E6B3;
+            --gold-dark: #B8860B;
+            --black: #000000;
+            --white: #ffffff;
+            --gray: #f5f5f5;
+            --dark-gray: #333333;
+            --light-gray: #e0e0e0;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+        }
+
+        body {
+            background-color: var(--white);
+            color: var(--black);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .admin-header {
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: var(--black);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .admin-brand img {
+            height: 40px;
+            width: auto;
+        }
+
+        .admin-brand h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .admin-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Main Layout */
+        .admin-container {
+            display: flex;
+            min-height: calc(100vh - 80px);
+        }
+
+        /* Sidebar */
+        .admin-sidebar {
+            width: 280px;
+            background: var(--gray);
+            padding: 2rem 1rem;
+            border-right: 1px solid var(--light-gray);
+        }
+
+        .admin-nav {
+            list-style: none;
+        }
+
+        .admin-nav li {
+            margin-bottom: 0.5rem;
+        }
+
+        .admin-nav a {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.8rem 1rem;
+            color: var(--dark-gray);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .admin-nav a:hover, .admin-nav a.active {
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        /* Main Content */
+        .admin-main {
+            flex: 1;
+            padding: 2rem;
+            background: var(--white);
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--light-gray);
+        }
+
+        .section-header h2 {
+            font-size: 1.8rem;
+            color: var(--gold-dark);
+            font-weight: 700;
+        }
+
+        /* Cards */
+        .stats-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--white);
+            border: 1px solid var(--light-gray);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gold-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+        }
+
+        /* Tables */
+        .data-table {
+            width: 100%;
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .data-table th {
+            background: var(--gold-light);
+            color: var(--black);
+            font-weight: 600;
+        }
+
+        .data-table tr:hover {
+            background: var(--gray);
+        }
+
+        /* Forms */
+        .form-container {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark-gray);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--light-gray);
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--gold);
+            outline: none;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        .btn-primary:hover {
+            background: var(--gold-dark);
+            color: var(--white);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: var(--white);
+        }
+
+        .btn-success:hover {
+            background: #218838;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: var(--white);
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+        }
+
+        /* Status Badges */
+        .status-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-available {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-borrowed {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-upcoming {
+            background: #cce7ff;
+            color: #004085;
+        }
+
+        .status-completed {
+            background: #e2e3e5;
+            color: #383d41;
+        }
+
+        /* Tabs */
+        .admin-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--light-gray);
+        }
+
+        .tab-btn {
+            padding: 0.8rem 1.5rem;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--dark-gray);
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            color: var(--gold-dark);
+            border-bottom-color: var(--gold);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* File Upload */
+        .file-upload {
+            border: 2px dashed var(--light-gray);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+
+        .file-upload:hover {
+            border-color: var(--gold);
+        }
+
+        .file-upload i {
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        /* Login Page */
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+        }
+
+        .login-box {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-logo img {
+            height: 80px;
+            width: auto;
+            margin-bottom: 1rem;
+        }
+
+        .login-logo h1 {
+            color: var(--gold-dark);
+            font-size: 1.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .admin-container {
+                flex-direction: column;
+            }
+
+            .admin-sidebar {
+                width: 100%;
+                padding: 1rem;
+            }
+
+            .admin-nav {
+                display: flex;
+                overflow-x: auto;
+                gap: 0.5rem;
+            }
+
+            .admin-nav li {
+                margin-bottom: 0;
+            }
+
+            .admin-nav a {
+                white-space: nowrap;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-tabs {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Page (Initially Visible) -->
+    <div id="loginPage" class="login-container">
+        <div class="login-box">
+            <div class="login-logo">
+                <img src="https://i.postimg.cc/QCfkMpcM/20251121-1617-Golden-Lion-Emblem-remix-01kak8vrfpfb9r1335qyg8w1gt.png" alt="THE SONGA WELFARE">
+                <h1>Admin Portal</h1>
+            </div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Portal (Initially Hidden) -->
+    <div id="adminPortal" style="display: none;">
+        <!-- Header -->
+        <header class="admin-header">
+            <div class="admin-brand">
+                <img src="https://i.postimg.cc/QCfkMpcM/20251121-1617-Golden-Lion-Emblem-remix-01kak8vrfpfb9r1335qyg8w1gt.png" alt="THE SONGA WELFARE">
+                <h1>THE SONGA WELFARE Admin</h1>
+            </div>
+            <div class="admin-actions">
+                <div class="user-info">
+                    <i class="fas fa-user-circle"></i>
+                    <span>Admin User</span>
+                </div>
+                <button class="btn btn-danger" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Container -->
+        <div class="admin-container">
+            <!-- Sidebar -->
+            <nav class="admin-sidebar">
+                <ul class="admin-nav">
+                    <li><a href="#dashboard" class="nav-link active" data-section="dashboard">
+                        <i class="fas fa-tachometer-alt"></i> Dashboard
+                    </a></li>
+                    <li><a href="#library" class="nav-link" data-section="library">
+                        <i class="fas fa-book"></i> Library Management
+                    </a></li>
+                    <li><a href="#events" class="nav-link" data-section="events">
+                        <i class="fas fa-calendar-alt"></i> Events Management
+                    </a></li>
+                    <li><a href="#homepage" class="nav-link" data-section="homepage">
+                        <i class="fas fa-home"></i> Homepage Content
+                    </a></li>
+                    <li><a href="#members" class="nav-link" data-section="members">
+                        <i class="fas fa-users"></i> Members
+                    </a></li>
+                    <li><a href="#settings" class="nav-link" data-section="settings">
+                        <i class="fas fa-cog"></i> Settings
+                    </a></li>
+                </ul>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="admin-main">
+                <!-- Dashboard Section -->
+                <section id="dashboard" class="content-section active">
+                    <div class="section-header">
+                        <h2>Dashboard Overview</h2>
+                    </div>
+                    
+                    <div class="stats-cards">
+                        <div class="stat-card">
+                            <div class="stat-number">156</div>
+                            <div class="stat-label">Total Books</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">23</div>
+                            <div class="stat-label">Books Borrowed</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">8</div>
+                            <div class="stat-label">Upcoming Events</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">342</div>
+                            <div class="stat-label">Active Members</div>
+                        </div>
+                    </div>
+
+                    <div class="form-container">
+                        <h3 style="margin-bottom: 1rem; color: var(--gold-dark);">Quick Actions</h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                            <button class="btn btn-primary" onclick="showSection('library')">
+                                <i class="fas fa-plus"></i> Add New Book
+                            </button>
+                            <button class="btn btn-primary" onclick="showSection('events')">
+                                <i class="fas fa-calendar-plus"></i> Create Event
+                            </button>
+                            <button class="btn btn-primary" onclick="showSection('homepage')">
+                                <i class="fas fa-edit"></i> Update Homepage
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Library Management Section -->
+                <section id="library" class="content-section">
+                    <div class="section-header">
+                        <h2>Library Management</h2>
+                        <button class="btn btn-primary" id="addBookBtn">
+                            <i class="fas fa-plus"></i> Add New Book
+                        </button>
+                    </div>
+
+                    <div class="admin-tabs">
+                        <button class="tab-btn active" data-tab="books">All Books</button>
+                        <button class="tab-btn" data-tab="categories">Categories</button>
+                        <button class="tab-btn" data-tab="borrowings">Borrowings</button>
+                    </div>
+
+                    <div class="tab-content active" id="books-tab">
+                        <div class="form-container" style="display: none;" id="bookForm">
+                            <h3 style="margin-bottom: 1rem; color: var(--gold-dark);" id="bookFormTitle">Add New Book</h3>
+                            <form id="bookFormElement">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="bookTitle">Book Title</label>
+                                        <input type="text" id="bookTitle" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="bookAuthor">Author</label>
+                                        <input type="text" id="bookAuthor" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="bookCategory">Category</label>
+                                        <select id="bookCategory" required>
+                                            <option value="">Select Category</option>
+                                            <option value="personal-growth">Personal Growth</option>
+                                            <option value="business">Business</option>
+                                            <option value="spirituality">Spirituality</option>
+                                            <option value="african-literature">African Literature</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="bookStatus">Status</label>
+                                        <select id="bookStatus" required>
+                                            <option value="available">Available</option>
+                                            <option value="borrowed">Borrowed</option>
+                                            <option value="maintenance">Maintenance</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="bookDescription">Description</label>
+                                    <textarea id="bookDescription" rows="3"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Book Cover</label>
+                                    <div class="file-upload">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        <p>Click to upload book cover image</p>
+                                        <input type="file" id="bookCover" accept="image/*" style="display: none;">
+                                    </div>
+                                </div>
+                                <div style="display: flex; gap: 1rem;">
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fas fa-save"></i> Save Book
+                                    </button>
+                                    <button type="button" class="btn btn-danger" onclick="hideBookForm()">
+                                        <i class="fas fa-times"></i> Cancel
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="data-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Author</th>
+                                        <th>Category</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Atomic Habits</td>
+                                        <td>James Clear</td>
+                                        <td>Personal Growth</td>
+                                        <td><span class="status-badge status-available">Available</span></td>
+                                        <td>
+                                            <button class="btn btn-primary btn-sm">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="btn btn-danger btn-sm">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>The Lean Startup</td>
+                                        <td>Eric Ries</td>
+                                        <td>Business</td>
+                                        <td><span class="status-badge status-borrowed">Borrowed</span></td>
+                                        <td>
+                                            <button class="btn btn-primary btn-sm">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="btn btn-danger btn-sm">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Events Management Section -->
+                <section id="events" class="content-section">
+                    <div class="section-header">
+                        <h2>Events Management</h2>
+                        <button class="btn btn-primary" id="addEventBtn">
+                            <i class="fas fa-plus"></i> Create Event
+                        </button>
+                    </div>
+
+                    <div class="admin-tabs">
+                        <button class="tab-btn active" data-tab="upcoming-events">Upcoming Events</button>
+                        <button class="tab-btn" data-tab="past-events">Past Events</button>
+                        <button class="tab-btn" data-tab="event-registrations">Registrations</button>
+                    </div>
+
+                    <div class="tab-content active" id="upcoming-events-tab">
+                        <div class="data-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Event Name</th>
+                                        <th>Date</th>
+                                        <th>Location</th>
+                                        <th>Registrations</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Mugs and Dines: Relationships & Communication</td>
+                                        <td>Dec 15, 2025</td>
+                                        <td>The Signature Restaurant, Nairobi</td>
+                                        <td>15/20</td>
+                                        <td><span class="status-badge status-upcoming">Upcoming</span></td>
+                                        <td>
+                                            <button class="btn btn-primary btn-sm">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="btn btn-danger btn-sm">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Men's Awakening Circle</td>
+                                        <td>Jan 12, 2026</td>
+                                        <td>THE SONGA WELFARE Center</td>
+                                        <td>28/-</td>
+                                        <td><span class="status-badge status-upcoming">Upcoming</span></td>
+                                        <td>
+                                            <button class="btn btn-primary btn-sm">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="btn btn-danger btn-sm">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Homepage Content Section -->
+                <section id="homepage" class="content-section">
+                    <div class="section-header">
+                        <h2>Homepage Content Management</h2>
+                    </div>
+
+                    <div class="form-container">
+                        <h3 style="margin-bottom: 1rem; color: var(--gold-dark);">Hero Section</h3>
+                        <form>
+                            <div class="form-group">
+                                <label for="heroTitle">Main Title</label>
+                                <input type="text" id="heroTitle" value="THE SONGA WELFARE" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="heroSubtitle">Subtitle</label>
+                                <textarea id="heroSubtitle" rows="2" required>Empowering communities through education, personal development, and social welfare initiatives.</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Hero Image</label>
+                                <div class="file-upload">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <p>Click to upload hero section image</p>
+                                    <input type="file" accept="image/*" style="display: none;">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-save"></i> Update Hero Section
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="form-container">
+                        <h3 style="margin-bottom: 1rem; color: var(--gold-dark);">Featured Content</h3>
+                        <form>
+                            <div class="form-group">
+                                <label for="featuredBooks">Featured Books (comma separated)</label>
+                                <textarea id="featuredBooks" rows="3" placeholder="Enter book titles separated by commas">Atomic Habits, The Lean Startup, The Power of Now, Things Fall Apart</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="featuredEvents">Featured Events (comma separated)</label>
+                                <textarea id="featuredEvents" rows="3" placeholder="Enter event names separated by commas">Mugs and Dines: Relationships & Communication, Men's Awakening Circle, Life Coaching Workshop</textarea>
+                            </div>
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-save"></i> Update Featured Content
+                            </button>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- Members Section -->
+                <section id="members" class="content-section">
+                    <div class="section-header">
+                        <h2>Members Management</h2>
+                    </div>
+
+                    <div class="data-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Membership</th>
+                                    <th>Join Date</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>John Doe</td>
+                                    <td>john@example.com</td>
+                                    <td>+254712345678</td>
+                                    <td>Premium</td>
+                                    <td>Jan 15, 2025</td>
+                                    <td><span class="status-badge status-available">Active</span></td>
+                                    <td>
+                                        <button class="btn btn-primary btn-sm">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-danger btn-sm">
+                                            <i class="fas fa-ban"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Settings Section -->
+                <section id="settings" class="content-section">
+                    <div class="section-header">
+                        <h2>System Settings</h2>
+                    </div>
+
+                    <div class="form-container">
+                        <h3 style="margin-bottom: 1rem; color: var(--gold-dark);">General Settings</h3>
+                        <form>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="siteName">Site Name</label>
+                                    <input type="text" id="siteName" value="THE SONGA WELFARE" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="contactEmail">Contact Email</label>
+                                    <input type="email" id="contactEmail" value="info@thesongawelfare.com" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="whatsappNumber">WhatsApp Number</label>
+                                    <input type="text" id="whatsappNumber" value="+254727211191" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="maxBooks">Max Books per Member</label>
+                                    <input type="number" id="maxBooks" value="3" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-save"></i> Save Settings
+                            </button>
+                        </form>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // Simple authentication (in production, use proper backend authentication)
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Simple demo authentication
+            if (username === 'admin' && password === 'password') {
+                document.getElementById('loginPage').style.display = 'none';
+                document.getElementById('adminPortal').style.display = 'block';
+            } else {
+                alert('Invalid credentials. Use admin/password for demo.');
+            }
+        });
+
+        // Logout functionality
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            document.getElementById('adminPortal').style.display = 'none';
+            document.getElementById('loginPage').style.display = 'flex';
+            document.getElementById('loginForm').reset();
+        });
+
+        // Navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const section = this.getAttribute('data-section');
+                showSection(section);
+                
+                // Update active nav link
+                document.querySelectorAll('.nav-link').forEach(nav => {
+                    nav.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+
+        // Tab functionality
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const tab = this.getAttribute('data-tab');
+                const container = this.closest('.admin-tabs');
+                const content = this.closest('.content-section');
+                
+                // Update active tab
+                container.querySelectorAll('.tab-btn').forEach(tabBtn => {
+                    tabBtn.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Show corresponding content
+                content.querySelectorAll('.tab-content').forEach(tabContent => {
+                    tabContent.classList.remove('active');
+                });
+                content.querySelector(`#${tab}-tab`).classList.add('active');
+            });
+        });
+
+        // Book form toggle
+        document.getElementById('addBookBtn').addEventListener('click', function() {
+            const form = document.getElementById('bookForm');
+            form.style.display = 'block';
+            document.getElementById('bookFormTitle').textContent = 'Add New Book';
+            document.getElementById('bookFormElement').reset();
+        });
+
+        function hideBookForm() {
+            document.getElementById('bookForm').style.display = 'none';
+        }
+
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Update navigation
+            document.querySelectorAll('.nav-link').forEach(nav => {
+                nav.classList.remove('active');
+                if (nav.getAttribute('data-section') === sectionId) {
+                    nav.classList.add('active');
+                }
+            });
+        }
+
+        // File upload interaction
+        document.querySelectorAll('.file-upload').forEach(upload => {
+            upload.addEventListener('click', function() {
+                const fileInput = this.querySelector('input[type="file"]');
+                fileInput.click();
+            });
+            
+            const fileInput = upload.querySelector('input[type="file"]');
+            fileInput.addEventListener('change', function() {
+                if (this.files.length > 0) {
+                    upload.querySelector('p').textContent = this.files[0].name;
+                }
+            });
+        });
+
+        // Form submissions
+        document.getElementById('bookFormElement').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Book saved successfully!');
+            hideBookForm();
+        });
+
+        // Demo data initialization
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('THE SONGA WELFARE Admin Portal Loaded');
+        });
+    </script>
+</body>
+</html>
