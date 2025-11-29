@@ -1120,6 +1120,248 @@
             // Add this line to register service worker
             registerServiceWorker();
         });
+        // ==================== FIREBASE NOTIFICATIONS ====================
+
+// Firebase Configuration - USE YOUR ACTUAL CONFIG
+const FIREBASE_CONFIG = {
+    apiKey: "AIzaSyDHrwJ44p_-MromirwB-sjNCJGJfVaI5BA",
+    authDomain: "the-songa-welfare.firebaseapp.com",
+    projectId: "the-songa-welfare",
+    storageBucket: "the-songa-welfare.firebasestorage.app",
+    messagingSenderId: "595080025220",
+    appId: "1:595080025220:web:fe4c833c55de37abdd1ed1"
+};
+
+// Firebase variables
+let messaging = null;
+let currentFCMToken = null;
+const VAPID_KEY = "BEnnvQ-infHLJnKNbrsScbZrxmOPuJFfgImh_rJh4ec1rdsjWa0q84JOVpbMQYePOCj1C5sdWNvJEAwq0RLtVzE";
+
+// Initialize Firebase
+function initializeFirebase() {
+    try {
+        if (firebase && !firebase.apps.length) {
+            firebase.initializeApp(FIREBASE_CONFIG);
+            messaging = firebase.messaging();
+            setupNotificationListeners();
+            console.log('Firebase initialized successfully');
+        }
+    } catch (error) {
+        console.log('Firebase initialization skipped:', error);
+    }
+}
+
+// Setup notification listeners
+function setupNotificationListeners() {
+    if (!messaging) return;
+
+    // Handle foreground messages (when app is open)
+    messaging.onMessage((payload) => {
+        console.log('Foreground message received: ', payload);
+        showNotification('New Update!', payload.notification?.body || 'New content available!');
+        
+        // Update UI based on notification type
+        if (payload.data?.type === 'posts') {
+            showNewContentIndicator('posts');
+        } else if (payload.data?.type === 'events') {
+            showNewContentIndicator('events');
+        } else if (payload.data?.type === 'library') {
+            showNewContentIndicator('library');
+        }
+    });
+}
+
+// Request notification permission
+async function requestNotificationPermission() {
+    try {
+        if (!messaging) {
+            initializeFirebase();
+            await new Promise(resolve => setTimeout(resolve, 1000));
+        }
+
+        const permission = await Notification.requestPermission();
+        if (permission === 'granted') {
+            console.log('Notification permission granted.');
+            
+            // Get FCM token
+            const token = await getFCMToken();
+            if (token) {
+                await saveTokenToServer(token);
+                showNotification('Notifications Enabled', 'You will now receive updates about new posts, events, and library content!');
+                return true;
+            }
+        } else {
+            showNotification('Permission Required', 'Please enable notifications to get updates about new content.', 'error');
+            return false;
+        }
+    } catch (error) {
+        console.error('Error requesting notification permission:', error);
+        showNotification('Error', 'Failed to enable notifications. Please try again.', 'error');
+        return false;
+    }
+}
+
+// Get FCM token
+async function getFCMToken() {
+    try {
+        if (!messaging) {
+            console.log('Messaging not initialized');
+            return null;
+        }
+
+        const token = await messaging.getToken({ 
+            vapidKey: VAPID_KEY
+        });
+        
+        console.log('FCM Token:', token);
+        localStorage.setItem('fcm_token', token);
+        currentFCMToken = token;
+        return token;
+    } catch (error) {
+        console.error('Error getting FCM token:', error);
+        return null;
+    }
+}
+
+// Save token to your server (you'll implement this later)
+async function saveTokenToServer(token) {
+    try {
+        // For now, just log it - you'll set up a backend later
+        console.log('Token to save to server:', token);
+        console.log('User:', currentUser?.email);
+        
+        // You can implement this later to save tokens to your database
+        // const response = await fetch('/api/save-token', {
+        //     method: 'POST',
+        //     headers: { 'Content-Type': 'application/json' },
+        //     body: JSON.stringify({ token, user: currentUser })
+        // });
+        
+    } catch (error) {
+        console.error('Error saving token to server:', error);
+    }
+}
+
+// Show new content indicator
+function showNewContentIndicator(type) {
+    let indicator = document.getElementById('new-content-indicator');
+    
+    if (!indicator) {
+        indicator = document.createElement('div');
+        indicator.id = 'new-content-indicator';
+        indicator.style.cssText = `
+            position: fixed;
+            top: 70px;
+            right: 20px;
+            background: var(--gold);
+            color: var(--black);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 1000;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        `;
+        document.body.appendChild(indicator);
+        
+        indicator.addEventListener('click', function() {
+            location.reload(); // Refresh to show new content
+        });
+    }
+    
+    const typeLabels = {
+        'posts': 'New Posts',
+        'events': 'New Events', 
+        'library': 'New Library Content'
+    };
+    
+    indicator.textContent = `${typeLabels[type]} available! Click to refresh.`;
+    indicator.style.display = 'block';
+    
+    // Auto-hide after 10 seconds
+    setTimeout(() => {
+        indicator.style.display = 'none';
+    }, 10000);
+}
+
+// Add notification option to dropdown
+function addNotificationOption() {
+    const notificationOption = document.createElement('div');
+    notificationOption.className = 'dropdown-item';
+    notificationOption.id = 'notificationOption';
+    notificationOption.innerHTML = `
+        <i class="fas fa-bell"></i>
+        <span>Enable Notifications</span>
+    `;
+    
+    // Insert before settings option
+    userDropdown.insertBefore(notificationOption, settingsOption);
+    
+    // Add event listener
+    notificationOption.addEventListener('click', async function() {
+        const enabled = await requestNotificationPermission();
+        if (enabled) {
+            notificationOption.innerHTML = `
+                <i class="fas fa-bell-slash"></i>
+                <span>Disable Notifications</span>
+            `;
+        }
+        closeDropdown();
+    });
+}
+
+// Initialize notifications when user signs in
+function initNotificationsForUser() {
+    if (currentUser) {
+        // Auto-request notifications after sign in
+        setTimeout(() => {
+            requestNotificationPermission();
+        }, 3000);
+    }
+}
+
+// Update your existing DOMContentLoaded to initialize Firebase
+document.addEventListener('DOMContentLoaded', function() {
+    // Your existing code...
+    loadUserFromStorage();
+    showWelcomeModal();
+    registerServiceWorker();
+    
+    // Add this line to initialize Firebase
+    initializeFirebase();
+    addNotificationOption();
+});
+
+// Update your Google Sign-In handler to init notifications
+function handleGoogleSignIn(response) {
+    console.log('Google Sign-In response:', response);
+    
+    const userData = parseJwt(response.credential);
+    console.log('User data:', userData);
+    
+    currentUser = {
+        id: userData.sub,
+        email: userData.email,
+        firstName: userData.given_name,
+        lastName: userData.family_name,
+        fullName: userData.name,
+        picture: userData.picture,
+        emailVerified: userData.email_verified
+    };
+    
+    updateUserProfile();
+    showNotification(`Welcome, ${currentUser.firstName}! Opening membership form...`, 'success');
+    welcomeModal.classList.remove('active');
+    
+    // Initialize notifications for the new user
+    initNotificationsForUser();
+    
+    setTimeout(() => {
+        googleFormModal.classList.add('active');
+    }, 1500);
+}
     </script>
 </body>
 </html>
