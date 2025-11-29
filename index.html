@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=1.0, user-scalable=no">
-    <title>THE SONGA WELFARE - Join Our Community</title>
+    <title>THE SONGA WELFARE - Apply for Membership</title>
     <link rel="icon" type="image/x-icon" href="https://i.postimg.cc/QCfkMpcM/20251121-1617-Golden-Lion-Emblem-remix-01kak8vrfpfb9r1335qyg8w1gt.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -505,22 +505,65 @@
             padding: 1rem;
         }
 
-        /* No Posts Message */
-        .no-posts {
+        /* Exclusive Content Area */
+        .exclusive-content {
             text-align: center;
             padding: 3rem 1rem;
             color: var(--dark-gray);
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 12px;
+            border: 2px dashed var(--gold-light);
+            margin: 2rem 0;
         }
 
-        .no-posts-icon {
-            font-size: 3rem;
+        .exclusive-icon {
+            font-size: 4rem;
             color: var(--gold);
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            animation: pulse 2s infinite;
         }
 
-        .no-posts h3 {
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .exclusive-content h3 {
             margin-bottom: 1rem;
             color: var(--gold-dark);
+            font-size: 1.8rem;
+        }
+
+        .exclusive-content p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .community-activity {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+            border-left: 4px solid var(--gold);
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            background: var(--gray);
+            border-radius: 6px;
+        }
+
+        .activity-icon {
+            color: var(--gold);
+            font-size: 1.2rem;
         }
 
         /* Bottom Navigation */
@@ -631,6 +674,10 @@
             .google-form-body {
                 height: calc(90vh - 80px);
             }
+            
+            .contact-buttons {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -642,12 +689,12 @@
     <div class="welcome-modal" id="welcomeModal">
         <div class="welcome-content">
             <div class="welcome-header">
-                <h2>Welcome to THE SONGA WELFARE</h2>
-                <p>Join our community of conscious individuals</p>
+                <h2>Join THE SONGA WELFARE Inner Circle</h2>
+                <p>Apply for exclusive membership privileges</p>
                 <button class="close-modal" id="closeWelcomeModal">&times;</button>
             </div>
             <div class="welcome-body">
-                <p>We're excited to have you here! By joining our community, you'll get access to exclusive content, events, and a network of like-minded individuals.</p>
+                <p>We're building a community of conscious individuals dedicated to growth and mutual support. As a member, you will gain <strong>exclusive access</strong> to our premium resources and private network.</p>
                 
                 <div class="benefits-list">
                     <div class="benefit-item">
@@ -655,8 +702,8 @@
                             <i class="fas fa-book"></i>
                         </div>
                         <div class="benefit-text">
-                            <h4>Basic Library Access</h4>
-                            <p>Monthly access to our curated digital library resources</p>
+                            <h4>Premium Library Access</h4>
+                            <p>Exclusive monthly access to our curated digital library resources</p>
                         </div>
                     </div>
                     <div class="benefit-item">
@@ -664,8 +711,8 @@
                             <i class="fas fa-chart-line"></i>
                         </div>
                         <div class="benefit-text">
-                            <h4>Financial Coaching</h4>
-                            <p>Monthly financial coaching sessions to help you achieve your goals</p>
+                            <h4>Private Financial Coaching</h4>
+                            <p>Monthly financial coaching sessions with our premium advisors</p>
                         </div>
                     </div>
                     <div class="benefit-item">
@@ -673,8 +720,8 @@
                             <i class="fas fa-users"></i>
                         </div>
                         <div class="benefit-text">
-                            <h4>Team Building</h4>
-                            <p>Regular team building activities to connect with the community</p>
+                            <h4>Exclusive Team Building</h4>
+                            <p>Private team building activities to connect with our elite community</p>
                         </div>
                     </div>
                     <div class="benefit-item">
@@ -682,14 +729,14 @@
                             <i class="fas fa-door-open"></i>
                         </div>
                         <div class="benefit-text">
-                            <h4>Club Access</h4>
-                            <p>Full access to our club facilities and community events</p>
+                            <h4>VIP Club Access</h4>
+                            <p>Full access to our premium club facilities and members-only events</p>
                         </div>
                     </div>
                 </div>
                 
                 <div class="google-signin-container">
-                    <p>Sign in with Google to continue</p>
+                    <p>Sign in with Google to begin your application</p>
                     <div id="g_id_onload"
                          data-client_id="138110899008-60ae40rmsh5v7oqv50o18kuuo08kvvus.apps.googleusercontent.com"
                          data-context="signin"
@@ -714,8 +761,8 @@
     <div class="google-form-modal" id="googleFormModal">
         <div class="google-form-content">
             <div class="google-form-header">
-                <h2>THE SONGA WELFARE Membership Registration</h2>
-                <p>Complete the form below to join our community</p>
+                <h2>THE SONGA WELFARE Membership Application</h2>
+                <p>Complete your application to join our exclusive community</p>
                 <button class="close-modal" id="closeGoogleFormModal">&times;</button>
             </div>
             <div class="google-form-body">
@@ -737,11 +784,11 @@
             <div class="success-icon">
                 <i class="fas fa-check-circle"></i>
             </div>
-            <h2>Registration Successful!</h2>
-            <p>Thank you for joining THE SONGA WELFARE. We're excited to have you in our community.</p>
-            <p>We'll contact you shortly with more details about your membership.</p>
+            <h2>Application Received!</h2>
+            <p>Thank you for applying to THE SONGA WELFARE. Our team will review your application carefully.</p>
+            <p>You will receive an email shortly with the next steps to fully activate your membership privileges.</p>
             <button class="btn btn-primary" id="closeSuccessModal">
-                <i class="fas fa-thumbs-up"></i> Awesome!
+                <i class="fas fa-thumbs-up"></i> Understood
             </button>
         </div>
     </div>
@@ -762,15 +809,15 @@
                     <div class="user-dropdown" id="userDropdown">
                         <div class="dropdown-item" id="viewProfileOption">
                             <i class="fas fa-user"></i>
-                            <span>View Profile</span>
+                            <span>My Profile</span>
                         </div>
                         <div class="dropdown-item" id="membershipOption">
                             <i class="fas fa-crown"></i>
-                            <span>Membership</span>
+                            <span>Membership Status</span>
                         </div>
                         <div class="dropdown-item" id="settingsOption">
                             <i class="fas fa-cog"></i>
-                            <span>Settings</span>
+                            <span>Preferences</span>
                         </div>
                         <div class="dropdown-item" id="signOutOption">
                             <i class="fas fa-sign-out-alt"></i>
@@ -780,7 +827,7 @@
                 </div>
                 <button class="join-btn" id="headerJoinBtn">
                     <i class="fas fa-user-plus"></i>
-                    <span>Join Us</span>
+                    <span>Apply for Membership</span>
                 </button>
             </div>
         </div>
@@ -788,26 +835,60 @@
 
     <!-- Main Content -->
     <main class="container">
-        <!-- No Posts Message -->
-        <div class="no-posts">
-            <div class="no-posts-icon">
-                <i class="fas fa-newspaper"></i>
+        <!-- Exclusive Content Area -->
+        <div class="exclusive-content">
+            <div class="exclusive-icon">
+                <i class="fas fa-lock"></i>
             </div>
-            <h3>No Posts Yet</h3>
-            <p>We're working on creating valuable content for our community.</p>
-            <p>Check back soon for updates, or join our membership to be the first to know when we post new content.</p>
+            <h3>Exclusive Member Content</h3>
+            <p>This section is reserved for our valued members. Join THE SONGA WELFARE to unlock our premium library of resources, private event announcements, and community discussions.</p>
+            
+            <div class="community-activity">
+                <h4 style="color: var(--gold-dark); margin-bottom: 1rem;">Community Activity Behind the Scenes</h4>
+                
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <div class="activity-text">
+                        <strong>12 members</strong> are currently discussing financial strategies in the private forum
+                    </div>
+                </div>
+                
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-calendar-star"></i>
+                    </div>
+                    <div class="activity-text">
+                        <strong>Next members-only event:</strong> Wealth Building Workshop this Saturday
+                    </div>
+                </div>
+                
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <div class="activity-text">
+                        <strong>3 new premium resources</strong> added to the member library this week
+                    </div>
+                </div>
+            </div>
+            
+            <button class="btn btn-primary" id="unlockContentBtn" style="margin-top: 2rem;">
+                <i class="fas fa-unlock"></i> Unlock Membership Benefits
+            </button>
         </div>
 
         <!-- Contact Section -->
         <div class="contact-section">
-            <h3>Join The Movement</h3>
-            <p>Ready to awaken your potential and be part of the change? Connect with us directly:</p>
+            <h3>Ready to Join The Inner Circle?</h3>
+            <p>Take the first step toward awakening your potential and accessing exclusive community benefits.</p>
             <div class="contact-buttons">
                 <button class="contact-btn" id="contactJoinBtn">
-                    <i class="fas fa-user-plus"></i> Join Membership
+                    <i class="fas fa-crown"></i> Apply for Membership
                 </button>
                 <a href="mailto:office.songawelfare@gmail.com" class="contact-btn">
-                    <i class="fas fa-envelope"></i> Email Us
+                    <i class="fas fa-envelope"></i> Contact Membership Team
                 </a>
             </div>
         </div>
@@ -846,6 +927,7 @@
         const closeSuccessModal = document.getElementById('closeSuccessModal');
         const headerJoinBtn = document.getElementById('headerJoinBtn');
         const contactJoinBtn = document.getElementById('contactJoinBtn');
+        const unlockContentBtn = document.getElementById('unlockContentBtn');
         const notification = document.getElementById('notification');
         const userProfile = document.getElementById('userProfile');
         const userAvatar = document.getElementById('userAvatar');
@@ -911,7 +993,7 @@
             updateUserProfile();
             
             // Show success message
-            showNotification(`Welcome, ${currentUser.firstName}! Opening membership form...`, 'success');
+            showNotification(`Welcome, ${currentUser.firstName}! Preparing your application...`, 'success');
             
             // Close welcome modal if open
             welcomeModal.classList.remove('active');
@@ -1013,7 +1095,7 @@
 
         // Dropdown option event listeners
         viewProfileOption.addEventListener('click', function() {
-            showNotification('Profile feature coming soon!', 'success');
+            showNotification('Your member profile is being prepared!', 'success');
             closeDropdown();
         });
 
@@ -1022,13 +1104,13 @@
                 googleFormModal.classList.add('active');
                 closeDropdown();
             } else {
-                showNotification('Please sign in first', 'error');
+                showNotification('Please sign in to check your membership status', 'error');
                 welcomeModal.classList.add('active');
             }
         });
 
         settingsOption.addEventListener('click', function() {
-            showNotification('Settings feature coming soon!', 'success');
+            showNotification('Member preferences coming soon!', 'success');
             closeDropdown();
         });
 
@@ -1042,7 +1124,7 @@
             if (!currentUser) {
                 // User not signed in, show welcome modal with Google Sign-In
                 welcomeModal.classList.add('active');
-                showNotification('Please sign in with Google first', 'error');
+                showNotification('Please sign in with Google to begin your application', 'error');
             } else {
                 // User is signed in, show Google Form
                 googleFormModal.classList.add('active');
@@ -1054,7 +1136,19 @@
             if (!currentUser) {
                 // User not signed in, show welcome modal with Google Sign-In
                 welcomeModal.classList.add('active');
-                showNotification('Please sign in with Google first', 'error');
+                showNotification('Please sign in with Google to begin your application', 'error');
+            } else {
+                // User is signed in, show Google Form
+                googleFormModal.classList.add('active');
+            }
+        });
+
+        // Unlock content button in main area
+        unlockContentBtn.addEventListener('click', function() {
+            if (!currentUser) {
+                // User not signed in, show welcome modal with Google Sign-In
+                welcomeModal.classList.add('active');
+                showNotification('Sign in to apply for membership and unlock exclusive content', 'error');
             } else {
                 // User is signed in, show Google Form
                 googleFormModal.classList.add('active');
@@ -1097,7 +1191,8 @@
 
         // Global function for Google Sign-In callback
         window.handleGoogleSignIn = handleGoogleSignIn;
-        // Service Worker Registration - Add this to your existing JavaScript
+
+        // Service Worker Registration
         function registerServiceWorker() {
             if ('serviceWorker' in navigator) {
                 navigator.serviceWorker.register('/innercircle/sw.js')
@@ -1120,248 +1215,6 @@
             // Add this line to register service worker
             registerServiceWorker();
         });
-        // ==================== FIREBASE NOTIFICATIONS ====================
-
-// Firebase Configuration - USE YOUR ACTUAL CONFIG
-const FIREBASE_CONFIG = {
-    apiKey: "AIzaSyDHrwJ44p_-MromirwB-sjNCJGJfVaI5BA",
-    authDomain: "the-songa-welfare.firebaseapp.com",
-    projectId: "the-songa-welfare",
-    storageBucket: "the-songa-welfare.firebasestorage.app",
-    messagingSenderId: "595080025220",
-    appId: "1:595080025220:web:fe4c833c55de37abdd1ed1"
-};
-
-// Firebase variables
-let messaging = null;
-let currentFCMToken = null;
-const VAPID_KEY = "BEnnvQ-infHLJnKNbrsScbZrxmOPuJFfgImh_rJh4ec1rdsjWa0q84JOVpbMQYePOCj1C5sdWNvJEAwq0RLtVzE";
-
-// Initialize Firebase
-function initializeFirebase() {
-    try {
-        if (firebase && !firebase.apps.length) {
-            firebase.initializeApp(FIREBASE_CONFIG);
-            messaging = firebase.messaging();
-            setupNotificationListeners();
-            console.log('Firebase initialized successfully');
-        }
-    } catch (error) {
-        console.log('Firebase initialization skipped:', error);
-    }
-}
-
-// Setup notification listeners
-function setupNotificationListeners() {
-    if (!messaging) return;
-
-    // Handle foreground messages (when app is open)
-    messaging.onMessage((payload) => {
-        console.log('Foreground message received: ', payload);
-        showNotification('New Update!', payload.notification?.body || 'New content available!');
-        
-        // Update UI based on notification type
-        if (payload.data?.type === 'posts') {
-            showNewContentIndicator('posts');
-        } else if (payload.data?.type === 'events') {
-            showNewContentIndicator('events');
-        } else if (payload.data?.type === 'library') {
-            showNewContentIndicator('library');
-        }
-    });
-}
-
-// Request notification permission
-async function requestNotificationPermission() {
-    try {
-        if (!messaging) {
-            initializeFirebase();
-            await new Promise(resolve => setTimeout(resolve, 1000));
-        }
-
-        const permission = await Notification.requestPermission();
-        if (permission === 'granted') {
-            console.log('Notification permission granted.');
-            
-            // Get FCM token
-            const token = await getFCMToken();
-            if (token) {
-                await saveTokenToServer(token);
-                showNotification('Notifications Enabled', 'You will now receive updates about new posts, events, and library content!');
-                return true;
-            }
-        } else {
-            showNotification('Permission Required', 'Please enable notifications to get updates about new content.', 'error');
-            return false;
-        }
-    } catch (error) {
-        console.error('Error requesting notification permission:', error);
-        showNotification('Error', 'Failed to enable notifications. Please try again.', 'error');
-        return false;
-    }
-}
-
-// Get FCM token
-async function getFCMToken() {
-    try {
-        if (!messaging) {
-            console.log('Messaging not initialized');
-            return null;
-        }
-
-        const token = await messaging.getToken({ 
-            vapidKey: VAPID_KEY
-        });
-        
-        console.log('FCM Token:', token);
-        localStorage.setItem('fcm_token', token);
-        currentFCMToken = token;
-        return token;
-    } catch (error) {
-        console.error('Error getting FCM token:', error);
-        return null;
-    }
-}
-
-// Save token to your server (you'll implement this later)
-async function saveTokenToServer(token) {
-    try {
-        // For now, just log it - you'll set up a backend later
-        console.log('Token to save to server:', token);
-        console.log('User:', currentUser?.email);
-        
-        // You can implement this later to save tokens to your database
-        // const response = await fetch('/api/save-token', {
-        //     method: 'POST',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: JSON.stringify({ token, user: currentUser })
-        // });
-        
-    } catch (error) {
-        console.error('Error saving token to server:', error);
-    }
-}
-
-// Show new content indicator
-function showNewContentIndicator(type) {
-    let indicator = document.getElementById('new-content-indicator');
-    
-    if (!indicator) {
-        indicator = document.createElement('div');
-        indicator.id = 'new-content-indicator';
-        indicator.style.cssText = `
-            position: fixed;
-            top: 70px;
-            right: 20px;
-            background: var(--gold);
-            color: var(--black);
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            z-index: 1000;
-            animation: bounce 2s infinite;
-            cursor: pointer;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        `;
-        document.body.appendChild(indicator);
-        
-        indicator.addEventListener('click', function() {
-            location.reload(); // Refresh to show new content
-        });
-    }
-    
-    const typeLabels = {
-        'posts': 'New Posts',
-        'events': 'New Events', 
-        'library': 'New Library Content'
-    };
-    
-    indicator.textContent = `${typeLabels[type]} available! Click to refresh.`;
-    indicator.style.display = 'block';
-    
-    // Auto-hide after 10 seconds
-    setTimeout(() => {
-        indicator.style.display = 'none';
-    }, 10000);
-}
-
-// Add notification option to dropdown
-function addNotificationOption() {
-    const notificationOption = document.createElement('div');
-    notificationOption.className = 'dropdown-item';
-    notificationOption.id = 'notificationOption';
-    notificationOption.innerHTML = `
-        <i class="fas fa-bell"></i>
-        <span>Enable Notifications</span>
-    `;
-    
-    // Insert before settings option
-    userDropdown.insertBefore(notificationOption, settingsOption);
-    
-    // Add event listener
-    notificationOption.addEventListener('click', async function() {
-        const enabled = await requestNotificationPermission();
-        if (enabled) {
-            notificationOption.innerHTML = `
-                <i class="fas fa-bell-slash"></i>
-                <span>Disable Notifications</span>
-            `;
-        }
-        closeDropdown();
-    });
-}
-
-// Initialize notifications when user signs in
-function initNotificationsForUser() {
-    if (currentUser) {
-        // Auto-request notifications after sign in
-        setTimeout(() => {
-            requestNotificationPermission();
-        }, 3000);
-    }
-}
-
-// Update your existing DOMContentLoaded to initialize Firebase
-document.addEventListener('DOMContentLoaded', function() {
-    // Your existing code...
-    loadUserFromStorage();
-    showWelcomeModal();
-    registerServiceWorker();
-    
-    // Add this line to initialize Firebase
-    initializeFirebase();
-    addNotificationOption();
-});
-
-// Update your Google Sign-In handler to init notifications
-function handleGoogleSignIn(response) {
-    console.log('Google Sign-In response:', response);
-    
-    const userData = parseJwt(response.credential);
-    console.log('User data:', userData);
-    
-    currentUser = {
-        id: userData.sub,
-        email: userData.email,
-        firstName: userData.given_name,
-        lastName: userData.family_name,
-        fullName: userData.name,
-        picture: userData.picture,
-        emailVerified: userData.email_verified
-    };
-    
-    updateUserProfile();
-    showNotification(`Welcome, ${currentUser.firstName}! Opening membership form...`, 'success');
-    welcomeModal.classList.remove('active');
-    
-    // Initialize notifications for the new user
-    initNotificationsForUser();
-    
-    setTimeout(() => {
-        googleFormModal.classList.add('active');
-    }, 1500);
-}
     </script>
 </body>
 </html>
