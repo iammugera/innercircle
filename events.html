@@ -7,6 +7,9 @@
     <link rel="icon" type="image/x-icon" href="https://i.postimg.cc/QCfkMpcM/20251121-1617-Golden-Lion-Emblem-remix-01kak8vrfpfb9r1335qyg8w1gt.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- Google Sign-In API -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    
     <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#D4AF37">
@@ -91,6 +94,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            position: relative;
         }
 
         .join-btn {
@@ -112,6 +116,79 @@
         .join-btn:hover {
             background-color: var(--gold-dark);
             color: var(--white);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 5px 10px;
+            border-radius: 20px;
+            background: var(--gold-light);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--black);
+        }
+
+        /* User Profile Dropdown */
+        .user-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            min-width: 180px;
+            z-index: 1000;
+            display: none;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+
+        .user-dropdown.active {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--gold-light);
+        }
+
+        .dropdown-item i {
+            width: 20px;
+            text-align: center;
+            color: var(--gold-dark);
         }
 
         /* Main Content */
@@ -147,71 +224,44 @@
             padding-bottom: 0.5rem;
         }
 
-        .event-card {
-            background-color: var(--white);
-            border: 1px solid var(--light-gray);
-            border-radius: 8px;
-            overflow: hidden;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .event-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .event-header {
-            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-            color: var(--black);
-            padding: 1.5rem;
+        .no-events-container {
             text-align: center;
+            padding: 3rem 1.5rem;
+            background-color: var(--gray);
+            border-radius: 12px;
+            margin: 2rem 0;
         }
 
-        .event-title {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-            font-weight: 700;
-        }
-
-        .event-date {
-            font-size: 1rem;
-            opacity: 0.9;
-        }
-
-        .event-body {
-            padding: 1.5rem;
-        }
-
-        .event-details {
-            margin-bottom: 1.5rem;
-        }
-
-        .event-detail {
-            display: flex;
-            align-items: center;
-            margin-bottom: 0.8rem;
-        }
-
-        .event-detail i {
-            width: 20px;
-            margin-right: 10px;
+        .no-events-icon {
+            font-size: 4rem;
             color: var(--gold);
-        }
-
-        .event-description {
             margin-bottom: 1.5rem;
-            line-height: 1.6;
         }
 
-        .event-actions {
+        .no-events-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--gold-dark);
+        }
+
+        .no-events-description {
+            margin-bottom: 2rem;
+            color: var(--dark-gray);
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .notification-options {
             display: flex;
-            gap: 10px;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 400px;
+            margin: 0 auto;
         }
 
         .btn {
-            padding: 10px 16px;
+            padding: 12px 20px;
             border: none;
             border-radius: 6px;
             font-size: 0.9rem;
@@ -223,7 +273,6 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            flex: 1;
         }
 
         .btn-primary {
@@ -256,34 +305,66 @@
             background-color: var(--whatsapp-dark);
         }
 
-        .event-tag {
-            display: inline-block;
-            background-color: var(--gold-light);
-            color: var(--gold-dark);
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-right: 0.5rem;
+        /* Google Form Modal */
+        .google-form-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .google-form-modal.active {
+            display: flex;
+        }
+
+        .google-form-content {
+            background-color: white;
+            border-radius: 12px;
+            width: 95%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: modalAppear 0.5s ease-out;
+        }
+
+        @keyframes modalAppear {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .google-form-header {
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: var(--black);
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .google-form-header h2 {
+            font-size: 1.5rem;
             margin-bottom: 0.5rem;
         }
 
-        /* Upcoming Events */
-        .upcoming-events {
-            margin-bottom: 2rem;
+        .google-form-body {
+            padding: 0;
+            height: 600px;
+            overflow: hidden;
         }
 
-        /* Past Events */
-        .past-events .event-card {
-            opacity: 0.8;
+        .google-form-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
         }
 
-        .past-events .event-header {
-            background: linear-gradient(135deg, var(--light-gray), var(--dark-gray));
-            color: var(--white);
-        }
-
-        /* Registration Modals */
+        /* Event Notification Modal */
         .registration-modal {
             display: none;
             position: fixed;
@@ -310,11 +391,6 @@
             overflow-y: auto;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             animation: modalAppear 0.5s ease-out;
-        }
-
-        @keyframes modalAppear {
-            from { transform: scale(0.9); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
         }
 
         .registration-header {
@@ -366,60 +442,6 @@
 
         .form-row .form-group {
             flex: 1;
-        }
-
-        .membership-options {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-            margin: 1.5rem 0;
-        }
-
-        .membership-option {
-            border: 2px solid var(--light-gray);
-            border-radius: 8px;
-            padding: 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .membership-option.selected {
-            border-color: var(--gold);
-            background-color: rgba(212, 175, 55, 0.05);
-        }
-
-        .membership-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .membership-name {
-            font-weight: bold;
-            color: var(--gold-dark);
-        }
-
-        .membership-price {
-            font-weight: bold;
-            color: var(--gold);
-        }
-
-        .membership-features {
-            list-style: none;
-        }
-
-        .membership-features li {
-            padding: 5px 0;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .membership-features li i {
-            color: var(--gold);
-            font-size: 0.8rem;
         }
 
         .submit-btn {
@@ -641,29 +663,33 @@
                 max-width: 600px;
             }
             
-            .event-actions {
+            .notification-options {
                 flex-direction: row;
-            }
-            
-            .membership-options {
-                grid-template-columns: 1fr 1fr;
             }
         }
 
         @media (max-width: 480px) {
-            .event-actions {
-                flex-direction: column;
-            }
-            
-            .form-row {
-                flex-direction: column;
-                gap: 0;
-            }
-            
             .notification {
                 right: 10px;
                 left: 10px;
                 max-width: none;
+            }
+            
+            .contact-buttons {
+                flex-direction: column;
+            }
+            
+            .user-name {
+                display: none;
+            }
+            
+            .google-form-content {
+                width: 98%;
+                height: 90vh;
+            }
+            
+            .google-form-body {
+                height: calc(90vh - 80px);
             }
         }
     </style>
@@ -672,174 +698,72 @@
     <!-- Notification -->
     <div class="notification" id="notification"></div>
 
-    <!-- Membership Registration Modal -->
-    <div class="registration-modal" id="membershipModal">
-        <div class="registration-content">
-            <div class="registration-header">
-                <h2>Join THE SONGA WELFARE</h2>
-                <p>Complete your membership registration to access all benefits</p>
-                <button class="close-modal" id="closeMembershipModal">&times;</button>
+    <!-- Google Form Modal -->
+    <div class="google-form-modal" id="googleFormModal">
+        <div class="google-form-content">
+            <div class="google-form-header">
+                <h2>THE SONGA WELFARE Membership Registration</h2>
+                <p>Complete the form below to join our community</p>
+                <button class="close-modal" id="closeGoogleFormModal">&times;</button>
             </div>
-            <div class="registration-body">
-                <form id="membershipForm">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="membershipFirstName">First Name</label>
-                            <input type="text" id="membershipFirstName" name="firstName" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="membershipLastName">Last Name</label>
-                            <input type="text" id="membershipLastName" name="lastName" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="membershipEmail">Email Address</label>
-                        <input type="email" id="membershipEmail" name="email" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="membershipPhone">Phone Number</label>
-                        <input type="tel" id="membershipPhone" name="phone" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="membershipLocation">Location</label>
-                        <input type="text" id="membershipLocation" name="location" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="membershipOccupation">Occupation</label>
-                        <input type="text" id="membershipOccupation" name="occupation" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="membershipHearAbout">How did you hear about us?</label>
-                        <select id="membershipHearAbout" name="hearAbout" required>
-                            <option value="">Select an option</option>
-                            <option value="social-media">Social Media</option>
-                            <option value="friend">Friend/Colleague</option>
-                            <option value="event">Event</option>
-                            <option value="search">Online Search</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Select Your Membership</label>
-                        <div class="membership-options">
-                            <div class="membership-option" data-value="basic">
-                                <div class="membership-header">
-                                    <span class="membership-name">Basic Membership</span>
-                                    <span class="membership-price">KSh 1,500/month</span>
-                                </div>
-                                <ul class="membership-features">
-                                    <li><i class="fas fa-check"></i> E-library Basic Access</li>
-                                    <li><i class="fas fa-check"></i> Monthly Life Coaching Events</li>
-                                    <li><i class="fas fa-check"></i> Team Building Events</li>
-                                    <li><i class="fas fa-check"></i> Community Access</li>
-                                </ul>
-                            </div>
-                            <div class="membership-option" data-value="premium">
-                                <div class="membership-header">
-                                    <span class="membership-name">Premium Membership</span>
-                                    <span class="membership-price">KSh 3,000/month</span>
-                                </div>
-                                <ul class="membership-features">
-                                    <li><i class="fas fa-check"></i> All Basic Benefits</li>
-                                    <li><i class="fas fa-check"></i> Advanced E-library Access</li>
-                                    <li><i class="fas fa-check"></i> One-on-One Coaching Sessions</li>
-                                    <li><i class="fas fa-check"></i> Priority Event Registration</li>
-                                    <li><i class="fas fa-check"></i> Exclusive Content</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <input type="hidden" id="membershipType" name="membershipType" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="membershipGoals">What are your personal development goals?</label>
-                        <textarea id="membershipGoals" name="goals" rows="3" placeholder="Tell us about what you hope to achieve by joining our community..."></textarea>
-                    </div>
-                    
-                    <button type="submit" class="submit-btn" id="submitMembership">
-                        <i class="fas fa-paper-plane"></i> Complete Membership Registration
-                    </button>
-                </form>
+            <div class="google-form-body">
+                <iframe 
+                    src="https://docs.google.com/forms/d/e/1FAIpQLScann_IwZdMXihlYHa6jQK1gLy7qEsIVDR-mKUzc3CroZgvOQ/viewform?embedded=true" 
+                    class="google-form-iframe"
+                    frameborder="0"
+                    marginheight="0"
+                    marginwidth="0">
+                    Loading…
+                </iframe>
             </div>
         </div>
     </div>
 
-    <!-- Event Registration Modal -->
-    <div class="registration-modal" id="eventRegistrationModal">
+    <!-- Event Notification Modal -->
+    <div class="registration-modal" id="notificationModal">
         <div class="registration-content">
             <div class="registration-header">
-                <h2>Register for Event</h2>
-                <p id="eventModalTitle">Complete your registration</p>
-                <button class="close-modal" id="closeEventModal">&times;</button>
+                <h2>Get Notified About Future Events</h2>
+                <p>We'll contact you when we schedule new events</p>
+                <button class="close-modal" id="closeNotificationModal">&times;</button>
             </div>
             <div class="registration-body">
-                <form id="eventRegistrationForm">
-                    <input type="hidden" id="eventName" name="eventName">
-                    <input type="hidden" id="eventDate" name="eventDate">
-                    <input type="hidden" id="eventLocation" name="eventLocation">
-                    <input type="hidden" id="eventPrice" name="eventPrice">
-                    
+                <form id="notificationForm">
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="eventFirstName">First Name</label>
-                            <input type="text" id="eventFirstName" name="firstName" required>
+                            <label for="notificationFirstName">First Name</label>
+                            <input type="text" id="notificationFirstName" name="firstName" required>
                         </div>
                         <div class="form-group">
-                            <label for="eventLastName">Last Name</label>
-                            <input type="text" id="eventLastName" name="lastName" required>
+                            <label for="notificationLastName">Last Name</label>
+                            <input type="text" id="notificationLastName" name="lastName" required>
                         </div>
                     </div>
                     
                     <div class="form-group">
-                        <label for="eventEmail">Email Address</label>
-                        <input type="email" id="eventEmail" name="email" required>
+                        <label for="notificationEmail">Email Address</label>
+                        <input type="email" id="notificationEmail" name="email" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="eventPhone">Phone Number</label>
-                        <input type="tel" id="eventPhone" name="phone" required>
+                        <label for="notificationPhone">Phone Number</label>
+                        <input type="tel" id="notificationPhone" name="phone" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="eventUserLocation">Your Location</label>
-                        <input type="text" id="eventUserLocation" name="location" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="eventOccupation">Occupation</label>
-                        <input type="text" id="eventOccupation" name="occupation" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="eventHearAbout">How did you hear about this event?</label>
-                        <select id="eventHearAbout" name="hearAbout" required>
-                            <option value="">Select an option</option>
-                            <option value="social-media">Social Media</option>
-                            <option value="friend">Friend/Colleague</option>
-                            <option value="website">THE SONGA WELFARE Website</option>
-                            <option value="previous-event">Previous Event</option>
-                            <option value="other">Other</option>
+                        <label for="notificationInterests">What types of events interest you most?</label>
+                        <select id="notificationInterests" name="interests" required>
+                            <option value="">Select your interests</option>
+                            <option value="workshops">Workshops & Seminars</option>
+                            <option value="social">Social & Networking Events</option>
+                            <option value="community">Community Service</option>
+                            <option value="coaching">Life Coaching Sessions</option>
+                            <option value="all">All Types of Events</option>
                         </select>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="eventExpectations">What do you hope to gain from this event?</label>
-                        <textarea id="eventExpectations" name="expectations" rows="3" placeholder="Tell us about your expectations and what you hope to learn..."></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="eventDietary">Any dietary restrictions or special requirements?</label>
-                        <textarea id="eventDietary" name="dietary" rows="2" placeholder="For dining events, please let us know about any dietary restrictions..."></textarea>
-                    </div>
-                    
-                    <button type="submit" class="submit-btn" id="submitEventRegistration">
-                        <i class="fas fa-paper-plane"></i> Complete Event Registration
+                    <button type="submit" class="submit-btn" id="submitNotification">
+                        <i class="fas fa-bell"></i> Notify Me About Future Events
                     </button>
                 </form>
             </div>
@@ -869,6 +793,30 @@
                 <div class="brand-name">THE SONGA™</div>
             </div>
             <div class="auth-section">
+                <div id="userProfile" class="user-profile" style="display: none;">
+                    <div class="user-avatar">
+                        <img id="userAvatar" src="" alt="User Avatar">
+                    </div>
+                    <div class="user-name" id="userDisplayName"></div>
+                    <div class="user-dropdown" id="userDropdown">
+                        <div class="dropdown-item" id="viewProfileOption">
+                            <i class="fas fa-user"></i>
+                            <span>View Profile</span>
+                        </div>
+                        <div class="dropdown-item" id="membershipOption">
+                            <i class="fas fa-crown"></i>
+                            <span>Membership</span>
+                        </div>
+                        <div class="dropdown-item" id="settingsOption">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </div>
+                        <div class="dropdown-item" id="signOutOption">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Sign Out</span>
+                        </div>
+                    </div>
+                </div>
                 <button class="join-btn" id="headerJoinBtn">
                     <i class="fas fa-user-plus"></i>
                     <span>Join Us</span>
@@ -886,135 +834,25 @@
         <div class="events-section upcoming-events">
             <h2 class="section-title">Upcoming Events</h2>
             
-            <!-- Event 1 -->
-            <div class="event-card">
-                <div class="event-header">
-                    <h3 class="event-title">Mugs and Dines: Relationships & Communication</h3>
-                    <p class="event-date">December 15, 2025 | 6:00 PM - 9:00 PM</p>
+            <!-- No Events Message -->
+            <div class="no-events-container">
+                <div class="no-events-icon">
+                    <i class="fas fa-calendar-times"></i>
                 </div>
-                <div class="event-body">
-                    <div class="event-tag">Dining Experience</div>
-                    <div class="event-tag">Limited Seating</div>
-                    
-                    <div class="event-description">
-                        <p>An intimate dining experience focused on improving communication in relationships. Join us for an evening of meaningful conversations, delicious food, and practical insights.</p>
-                    </div>
-                    
-                    <div class="event-details">
-                        <div class="event-detail">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>The Signature Restaurant, Nairobi</span>
-                        </div>
-                        <div class="event-detail">
-                            <i class="fas fa-users"></i>
-                            <span>Limited to 20 participants</span>
-                        </div>
-                        <div class="event-detail">
-                            <i class="fas fa-money-bill-wave"></i>
-                            <span>KSh 2,500 per person</span>
-                        </div>
-                    </div>
-                    
-                    <div class="event-actions">
-                        <button class="btn btn-primary register-event-btn" 
-                                data-event="Mugs and Dines: Relationships & Communication"
-                                data-date="December 15, 2025 | 6:00 PM - 9:00 PM"
-                                data-location="The Signature Restaurant, Nairobi"
-                                data-price="KSh 2,500 per person">
-                            <i class="fas fa-ticket-alt"></i> Register Now
-                        </button>
-                        <a href="https://wa.me/254727211191?text=Hi%20Mugera,%20I'm%20interested%20in%20the%20Mugs%20and%20Dines%20event%20on%20December%2015" class="btn btn-whatsapp" target="_blank">
-                            <i class="fab fa-whatsapp"></i> Inquire
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Event 2 -->
-            <div class="event-card">
-                <div class="event-header">
-                    <h3 class="event-title">Men's Awakening Circle</h3>
-                    <p class="event-date">January 12, 2026 | 2:00 PM - 5:00 PM</p>
-                </div>
-                <div class="event-body">
-                    <div class="event-tag">Men's Group</div>
-                    <div class="event-tag">Discussion</div>
-                    
-                    <div class="event-description">
-                        <p>A safe space for men to explore modern masculinity, share challenges, and develop strategies for personal growth and leadership in their communities.</p>
-                    </div>
-                    
-                    <div class="event-details">
-                        <div class="event-detail">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>THE SONGA WELFARE Center, Westlands</span>
-                        </div>
-                        <div class="event-detail">
-                            <i class="fas fa-users"></i>
-                            <span>Open to all men</span>
-                        </div>
-                        <div class="event-detail">
-                            <i class="fas fa-money-bill-wave"></i>
-                            <span>Free for members | KSh 500 for non-members</span>
-                        </div>
-                    </div>
-                    
-                    <div class="event-actions">
-                        <button class="btn btn-primary register-event-btn" 
-                                data-event="Men's Awakening Circle"
-                                data-date="January 12, 2026 | 2:00 PM - 5:00 PM"
-                                data-location="THE SONGA WELFARE Center, Westlands"
-                                data-price="Free for members | KSh 500 for non-members">
-                            <i class="fas fa-ticket-alt"></i> Register Now
-                        </button>
-                        <a href="https://wa.me/254727211191?text=Hi%20Mugera,%20I'm%20interested%20in%20the%20Men's%20Awakening%20Circle%20on%20January%2012" class="btn btn-whatsapp" target="_blank">
-                            <i class="fab fa-whatsapp"></i> Inquire
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Event 3 -->
-            <div class="event-card">
-                <div class="event-header">
-                    <h3 class="event-title">Life Coaching Workshop: Purpose Discovery</h3>
-                    <p class="event-date">February 8, 2026 | 9:00 AM - 1:00 PM</p>
-                </div>
-                <div class="event-body">
-                    <div class="event-tag">Workshop</div>
-                    <div class="event-tag">Personal Development</div>
-                    
-                    <div class="event-description">
-                        <p>A half-day intensive workshop designed to help you uncover your life's purpose, align your actions with your values, and create a roadmap for meaningful living.</p>
-                    </div>
-                    
-                    <div class="event-details">
-                        <div class="event-detail">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>THE SONGA WELFARE Center, Westlands</span>
-                        </div>
-                        <div class="event-detail">
-                            <i class="fas fa-users"></i>
-                            <span>Limited to 15 participants</span>
-                        </div>
-                        <div class="event-detail">
-                            <i class="fas fa-money-bill-wave"></i>
-                            <span>KSh 3,000 per person</span>
-                        </div>
-                    </div>
-                    
-                    <div class="event-actions">
-                        <button class="btn btn-primary register-event-btn" 
-                                data-event="Life Coaching Workshop: Purpose Discovery"
-                                data-date="February 8, 2026 | 9:00 AM - 1:00 PM"
-                                data-location="THE SONGA WELFARE Center, Westlands"
-                                data-price="KSh 3,000 per person">
-                            <i class="fas fa-ticket-alt"></i> Register Now
-                        </button>
-                        <a href="https://wa.me/254727211191?text=Hi%20Mugera,%20I'm%20interested%20in%20the%20Purpose%20Discovery%20Workshop%20on%20February%208" class="btn btn-whatsapp" target="_blank">
-                            <i class="fab fa-whatsapp"></i> Inquire
-                        </a>
-                    </div>
+                <h3 class="no-events-title">No Upcoming Events Scheduled</h3>
+                <p class="no-events-description">
+                    We're currently planning our next series of events and will announce them soon. 
+                    Stay connected with us to be the first to know about our upcoming workshops, 
+                    seminars, and community gatherings.
+                </p>
+                
+                <div class="notification-options">
+                    <button class="btn btn-primary" id="notifyMeBtn">
+                        <i class="fas fa-bell"></i> Notify Me About Future Events
+                    </button>
+                    <a href="https://wa.me/254727211191?text=Hi%20Mugera,%20I'm%20interested%20in%20your%20future%20events" class="btn btn-whatsapp" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Contact Us on WhatsApp
+                    </a>
                 </div>
             </div>
         </div>
@@ -1023,69 +861,25 @@
         <div class="events-section past-events">
             <h2 class="section-title">Past Events</h2>
             
-            <!-- Past Event 1 -->
-            <div class="event-card">
-                <div class="event-header">
-                    <h3 class="event-title">Community Building Day</h3>
-                    <p class="event-date">October 20, 2025 | 10:00 AM - 4:00 PM</p>
+            <!-- No Past Events Message -->
+            <div class="no-events-container">
+                <div class="no-events-icon">
+                    <i class="fas fa-history"></i>
                 </div>
-                <div class="event-body">
-                    <div class="event-tag">Community</div>
-                    <div class="event-tag">Team Building</div>
-                    
-                    <div class="event-description">
-                        <p>A day of connection, team-building activities, and community service projects that brought together members to strengthen bonds and give back to the community.</p>
-                    </div>
-                    
-                    <div class="event-details">
-                        <div class="event-detail">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>City Park, Nairobi</span>
-                        </div>
-                        <div class="event-detail">
-                            <i class="fas fa-users"></i>
-                            <span>45 participants</span>
-                        </div>
-                    </div>
-                    
-                    <div class="event-actions">
-                        <a href="gallery.html" class="btn btn-secondary">
-                            <i class="fas fa-images"></i> View Photos
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Past Event 2 -->
-            <div class="event-card">
-                <div class="event-header">
-                    <h3 class="event-title">Financial Literacy Seminar</h3>
-                    <p class="event-date">September 5, 2025 | 9:00 AM - 12:00 PM</p>
-                </div>
-                <div class="event-body">
-                    <div class="event-tag">Seminar</div>
-                    <div class="event-tag">Financial Education</div>
-                    
-                    <div class="event-description">
-                        <p>An educational seminar focused on practical financial management, investment basics, and wealth-building strategies for young professionals and entrepreneurs.</p>
-                    </div>
-                    
-                    <div class="event-details">
-                        <div class="event-detail">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>THE SONGA WELFARE Center, Westlands</span>
-                        </div>
-                        <div class="event-detail">
-                            <i class="fas fa-users"></i>
-                            <span>32 participants</span>
-                        </div>
-                    </div>
-                    
-                    <div class="event-actions">
-                        <a href="library.html#financial-resources" class="btn btn-secondary">
-                            <i class="fas fa-book"></i> Access Resources
-                        </a>
-                    </div>
+                <h3 class="no-events-title">Past Events Archive</h3>
+                <p class="no-events-description">
+                    Our past events archive is currently being updated. 
+                    Check back soon to see highlights from our previous workshops, 
+                    seminars, and community gatherings.
+                </p>
+                
+                <div class="notification-options">
+                    <a href="gallery.html" class="btn btn-secondary">
+                        <i class="fas fa-images"></i> View Photo Gallery
+                    </a>
+                    <a href="library.html" class="btn btn-secondary">
+                        <i class="fas fa-book"></i> Access Event Resources
+                    </a>
                 </div>
             </div>
         </div>
@@ -1128,29 +922,33 @@
     <script>
         // Configuration
         const WHATSAPP_NUMBER = '254727211191';
+        const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScann_IwZdMXihlYHa6jQK1gLy7qEsIVDR-mKUzc3CroZgvOQ/viewform?embedded=true';
         
         // DOM Elements
-        const membershipModal = document.getElementById('membershipModal');
-        const eventRegistrationModal = document.getElementById('eventRegistrationModal');
+        const googleFormModal = document.getElementById('googleFormModal');
+        const notificationModal = document.getElementById('notificationModal');
         const successModal = document.getElementById('successModal');
-        const closeMembershipModal = document.getElementById('closeMembershipModal');
-        const closeEventModal = document.getElementById('closeEventModal');
+        const closeGoogleFormModal = document.getElementById('closeGoogleFormModal');
+        const closeNotificationModal = document.getElementById('closeNotificationModal');
         const closeSuccessModal = document.getElementById('closeSuccessModal');
         const headerJoinBtn = document.getElementById('headerJoinBtn');
         const contactJoinBtn = document.getElementById('contactJoinBtn');
-        const membershipForm = document.getElementById('membershipForm');
-        const eventRegistrationForm = document.getElementById('eventRegistrationForm');
-        const submitMembership = document.getElementById('submitMembership');
-        const submitEventRegistration = document.getElementById('submitEventRegistration');
+        const notifyMeBtn = document.getElementById('notifyMeBtn');
+        const notificationForm = document.getElementById('notificationForm');
+        const submitNotification = document.getElementById('submitNotification');
         const notification = document.getElementById('notification');
-        const eventModalTitle = document.getElementById('eventModalTitle');
-        const eventNameInput = document.getElementById('eventName');
-        const eventDateInput = document.getElementById('eventDate');
-        const eventLocationInput = document.getElementById('eventLocation');
-        const eventPriceInput = document.getElementById('eventPrice');
-        const registerEventButtons = document.querySelectorAll('.register-event-btn');
-        const membershipOptions = document.querySelectorAll('.membership-option');
-        const membershipTypeInput = document.getElementById('membershipType');
+        const userProfile = document.getElementById('userProfile');
+        const userAvatar = document.getElementById('userAvatar');
+        const userDisplayName = document.getElementById('userDisplayName');
+        const userDropdown = document.getElementById('userDropdown');
+        const viewProfileOption = document.getElementById('viewProfileOption');
+        const membershipOption = document.getElementById('membershipOption');
+        const settingsOption = document.getElementById('settingsOption');
+        const signOutOption = document.getElementById('signOutOption');
+
+        // User state
+        let currentUser = null;
+        let dropdownOpen = false;
 
         // Show notification
         function showNotification(message, type = 'success') {
@@ -1176,93 +974,111 @@
             button.innerHTML = originalText || 'Complete Registration';
         }
 
-        // Header Join Us button - opens MEMBERSHIP form
-        headerJoinBtn.addEventListener('click', function() {
-            membershipModal.classList.add('active');
-        });
-
-        // Contact section Join Membership button
-        contactJoinBtn.addEventListener('click', function() {
-            membershipModal.classList.add('active');
-        });
-
-        // Event registration
-        registerEventButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const eventName = this.getAttribute('data-event');
-                const eventDate = this.getAttribute('data-date');
-                const eventLocation = this.getAttribute('data-location');
-                const eventPrice = this.getAttribute('data-price');
-                
-                eventNameInput.value = eventName;
-                eventDateInput.value = eventDate;
-                eventLocationInput.value = eventLocation;
-                eventPriceInput.value = eventPrice;
-                
-                eventModalTitle.textContent = `Register for: ${eventName}`;
-                eventRegistrationModal.classList.add('active');
-            });
-        });
-
-        // Membership selection
-        membershipOptions.forEach(option => {
-            option.addEventListener('click', function() {
-                membershipOptions.forEach(opt => opt.classList.remove('selected'));
-                this.classList.add('selected');
-                membershipTypeInput.value = this.getAttribute('data-value');
-            });
-        });
-
-        // Format membership data for WhatsApp message
-        function formatMembershipWhatsAppMessage(data) {
-            const membershipText = data.membershipType === 'basic' ? 'Basic Membership (KSh 1,500/month)' : 'Premium Membership (KSh 3,000/month)';
+        // Google Sign-In Handler
+        function handleGoogleSignIn(response) {
+            console.log('Google Sign-In response:', response);
             
-            return `🎉 *MEMBERSHIP REGISTRATION - THE SONGA WELFARE* 🎉
+            // Decode the JWT token to get user info
+            const userData = parseJwt(response.credential);
+            console.log('User data:', userData);
+            
+            // Store user data
+            currentUser = {
+                id: userData.sub,
+                email: userData.email,
+                firstName: userData.given_name,
+                lastName: userData.family_name,
+                fullName: userData.name,
+                picture: userData.picture,
+                emailVerified: userData.email_verified
+            };
+            
+            // Update UI
+            updateUserProfile();
+            
+            // Show success message
+            showNotification(`Welcome, ${currentUser.firstName}!`, 'success');
+        }
+
+        // Parse JWT token
+        function parseJwt(token) {
+            try {
+                const base64Url = token.split('.')[1];
+                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                }).join(''));
+                return JSON.parse(jsonPayload);
+            } catch (error) {
+                console.error('Error parsing JWT:', error);
+                return {};
+            }
+        }
+
+        // Update user profile in header
+        function updateUserProfile() {
+            if (currentUser) {
+                userAvatar.src = currentUser.picture;
+                userDisplayName.textContent = currentUser.firstName;
+                userProfile.style.display = 'flex';
+                headerJoinBtn.style.display = 'none';
+                
+                // Store user data in localStorage
+                localStorage.setItem('the_songa_welfare_user', JSON.stringify(currentUser));
+            }
+        }
+
+        // Load user from localStorage
+        function loadUserFromStorage() {
+            const storedUser = localStorage.getItem('the_songa_welfare_user');
+            if (storedUser) {
+                currentUser = JSON.parse(storedUser);
+                updateUserProfile();
+            }
+        }
+
+        // Sign out user
+        function signOut() {
+            currentUser = null;
+            userProfile.style.display = 'none';
+            headerJoinBtn.style.display = 'flex';
+            localStorage.removeItem('the_songa_welfare_user');
+            closeDropdown();
+            
+            showNotification('Signed out successfully', 'success');
+        }
+
+        // Toggle dropdown
+        function toggleDropdown() {
+            dropdownOpen = !dropdownOpen;
+            if (dropdownOpen) {
+                userDropdown.classList.add('active');
+            } else {
+                userDropdown.classList.remove('active');
+            }
+        }
+
+        // Close dropdown
+        function closeDropdown() {
+            dropdownOpen = false;
+            userDropdown.classList.remove('active');
+        }
+
+        // Format notification data for WhatsApp message
+        function formatNotificationWhatsAppMessage(data) {
+            return `🔔 *EVENT NOTIFICATION REQUEST - THE SONGA WELFARE* 🔔
 
 *Personal Details:*
 👤 Name: ${data.firstName} ${data.lastName}
 📧 Email: ${data.email}
 📞 Phone: ${data.phone}
-📍 Location: ${data.location}
-💼 Occupation: ${data.occupation}
 
-*Membership Information:*
-📋 Selected: ${membershipText}
-🔍 Heard About Us: ${data.hearAbout}
-
-*Goals & Expectations:*
-${data.goals || 'No specific goals mentioned'}
+*Event Interests:*
+🎯 Interested In: ${data.interests}
 
 *Registration Details:*
-📅 Registered: ${new Date().toLocaleString()}
-🌐 Source: Events Page Membership Registration`;
-        }
-
-        // Format event data for WhatsApp message
-        function formatEventWhatsAppMessage(data) {
-            return `🎟️ *EVENT REGISTRATION - THE SONGA WELFARE* 🎟️
-
-*Event Details:*
-📅 Event: ${data.eventName}
-🗓️ Date & Time: ${data.eventDate}
-📍 Location: ${data.eventLocation}
-💰 Price: ${data.eventPrice}
-
-*Attendee Information:*
-👤 Name: ${data.firstName} ${data.lastName}
-📧 Email: ${data.email}
-📞 Phone: ${data.phone}
-📍 Location: ${data.location}
-💼 Occupation: ${data.occupation}
-
-*Registration Details:*
-🔍 Heard About Event: ${data.hearAbout}
-🎯 Expectations: ${data.expectations || 'Not specified'}
-🍽️ Dietary/Requirements: ${data.dietary || 'None specified'}
-
-*Registration Information:*
-📅 Registered: ${new Date().toLocaleString()}
-🌐 Source: Events Page Registration`;
+📅 Requested: ${new Date().toLocaleString()}
+🌐 Source: Events Page Notification Request`;
         }
 
         // Send data to WhatsApp
@@ -1272,79 +1088,116 @@ ${data.goals || 'No specific goals mentioned'}
             window.open(whatsappUrl, '_blank');
         }
 
-        // Membership form submission
-        membershipForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load user from storage
+            loadUserFromStorage();
             
-            if (!membershipTypeInput.value) {
-                showNotification('Please select a membership option', 'error');
-                return;
-            }
+            // Add click event to user profile to toggle dropdown
+            userProfile.addEventListener('click', function(e) {
+                e.stopPropagation();
+                toggleDropdown();
+            });
             
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData);
-            data.timestamp = new Date().toISOString();
-            data.source = 'events_page_membership';
+            // Close dropdown when clicking elsewhere
+            document.addEventListener('click', function() {
+                closeDropdown();
+            });
             
-            try {
-                showLoading(submitMembership);
-                
-                const message = formatMembershipWhatsAppMessage(data);
-                sendToWhatsApp(message);
-                
-                membershipModal.classList.remove('active');
-                successModal.classList.add('active');
-                
-                membershipForm.reset();
-                membershipOptions.forEach(opt => opt.classList.remove('selected'));
-                membershipTypeInput.value = '';
-                
-                showNotification('Membership registration successful! Opening WhatsApp to send details.');
-            } catch (error) {
-                console.error('Membership registration error:', error);
-                showNotification('Registration failed. Please try again or contact us directly.', 'error');
-            } finally {
-                hideLoading(submitMembership);
+            // Prevent dropdown from closing when clicking inside it
+            userDropdown.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        });
+
+        // Dropdown option event listeners
+        viewProfileOption.addEventListener('click', function() {
+            showNotification('Profile feature coming soon!', 'success');
+            closeDropdown();
+        });
+
+        membershipOption.addEventListener('click', function() {
+            if (currentUser) {
+                googleFormModal.classList.add('active');
+                closeDropdown();
+            } else {
+                showNotification('Please sign in first', 'error');
             }
         });
 
-        // Event form submission
-        eventRegistrationForm.addEventListener('submit', async function(e) {
+        settingsOption.addEventListener('click', function() {
+            showNotification('Settings feature coming soon!', 'success');
+            closeDropdown();
+        });
+
+        signOutOption.addEventListener('click', function() {
+            signOut();
+            closeDropdown();
+        });
+
+        // Header Join Us button
+        headerJoinBtn.addEventListener('click', function() {
+            if (!currentUser) {
+                // User not signed in, show Google Sign-In
+                showNotification('Please sign in with Google first', 'error');
+            } else {
+                // User is signed in, show Google Form
+                googleFormModal.classList.add('active');
+            }
+        });
+
+        // Contact section Join Membership button
+        contactJoinBtn.addEventListener('click', function() {
+            if (!currentUser) {
+                // User not signed in, show Google Sign-In
+                showNotification('Please sign in with Google first', 'error');
+            } else {
+                // User is signed in, show Google Form
+                googleFormModal.classList.add('active');
+            }
+        });
+
+        // Notify Me button
+        notifyMeBtn.addEventListener('click', function() {
+            notificationModal.classList.add('active');
+        });
+
+        // Notification form submission
+        notificationForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const formData = new FormData(this);
             const data = Object.fromEntries(formData);
             data.timestamp = new Date().toISOString();
-            data.source = 'event_registration';
-            data.type = 'event';
+            data.source = 'event_notification_request';
             
             try {
-                showLoading(submitEventRegistration);
+                showLoading(submitNotification);
                 
-                const message = formatEventWhatsAppMessage(data);
+                const message = formatNotificationWhatsAppMessage(data);
                 sendToWhatsApp(message);
                 
-                eventRegistrationModal.classList.remove('active');
+                notificationModal.classList.remove('active');
                 successModal.classList.add('active');
                 
-                eventRegistrationForm.reset();
+                notificationForm.reset();
                 
-                showNotification('Event registration successful! Opening WhatsApp to send details.');
+                showNotification('Notification request successful! Opening WhatsApp to send details.');
             } catch (error) {
-                console.error('Event registration error:', error);
-                showNotification('Registration failed. Please try again or contact us directly.', 'error');
+                console.error('Notification request error:', error);
+                showNotification('Request failed. Please try again or contact us directly.', 'error');
             } finally {
-                hideLoading(submitEventRegistration);
+                hideLoading(submitNotification);
             }
         });
 
         // Close modals
-        closeMembershipModal.addEventListener('click', function() {
-            membershipModal.classList.remove('active');
+        closeGoogleFormModal.addEventListener('click', function() {
+            googleFormModal.classList.remove('active');
         });
 
-        closeEventModal.addEventListener('click', function() {
-            eventRegistrationModal.classList.remove('active');
+        closeNotificationModal.addEventListener('click', function() {
+            notificationModal.classList.remove('active');
         });
 
         closeSuccessModal.addEventListener('click', function() {
@@ -1352,15 +1205,15 @@ ${data.goals || 'No specific goals mentioned'}
         });
 
         // Close modals when clicking outside
-        membershipModal.addEventListener('click', function(e) {
-            if (e.target === membershipModal) {
-                membershipModal.classList.remove('active');
+        googleFormModal.addEventListener('click', function(e) {
+            if (e.target === googleFormModal) {
+                googleFormModal.classList.remove('active');
             }
         });
 
-        eventRegistrationModal.addEventListener('click', function(e) {
-            if (e.target === eventRegistrationModal) {
-                eventRegistrationModal.classList.remove('active');
+        notificationModal.addEventListener('click', function(e) {
+            if (e.target === notificationModal) {
+                notificationModal.classList.remove('active');
             }
         });
 
@@ -1369,6 +1222,9 @@ ${data.goals || 'No specific goals mentioned'}
                 successModal.classList.remove('active');
             }
         });
+
+        // Global function for Google Sign-In callback
+        window.handleGoogleSignIn = handleGoogleSignIn;
     </script>
 </body>
 </html>
