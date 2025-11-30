@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=1.0, user-scalable=no">
-    <title>THE SONGA WELFARE - Private Community</title>
+    <title>THE SONGA WELFARE - Community</title>
     <link rel="icon" type="image/x-icon" href="https://i.postimg.cc/QCfkMpcM/20251121-1617-Golden-Lion-Emblem-remix-01kak8vrfpfb9r1335qyg8w1gt.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -38,11 +38,6 @@
             --accent: #25D366;
             --whatsapp-green: #25D366;
             --whatsapp-dark: #128C7E;
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --like-color: #e74c3c;
-            --share-color: #3498db;
-            --save-color: #f39c12;
         }
 
         html {
@@ -98,27 +93,6 @@
             align-items: center;
             gap: 10px;
             position: relative;
-        }
-
-        .join-btn {
-            background-color: var(--gold);
-            color: var(--black);
-            border: none;
-            border-radius: 4px;
-            padding: 8px 16px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: background-color 0.3s;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .join-btn:hover {
-            background-color: var(--gold-dark);
-            color: var(--white);
         }
 
         .user-profile {
@@ -194,8 +168,8 @@
             color: var(--gold-dark);
         }
 
-        /* Platform Intro Modal */
-        .intro-modal {
+        /* Sign In Modal */
+        .signin-modal {
             display: none;
             position: fixed;
             top: 0;
@@ -208,15 +182,15 @@
             align-items: center;
         }
 
-        .intro-modal.active {
+        .signin-modal.active {
             display: flex;
         }
 
-        .intro-content {
+        .signin-content {
             background-color: white;
             border-radius: 12px;
             width: 90%;
-            max-width: 500px;
+            max-width: 400px;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             animation: modalAppear 0.5s ease-out;
@@ -227,113 +201,25 @@
             to { transform: scale(1); opacity: 1; }
         }
 
-        .intro-header {
+        .signin-header {
             background: linear-gradient(135deg, var(--gold), var(--gold-dark));
             color: var(--black);
             padding: 2rem;
             text-align: center;
         }
 
-        .intro-header h2 {
+        .signin-header h2 {
             font-size: 1.8rem;
             margin-bottom: 0.5rem;
         }
 
-        .intro-header p {
-            opacity: 0.9;
-        }
-
-        .intro-body {
+        .signin-body {
             padding: 2rem;
-        }
-
-        .intro-features {
-            margin: 1.5rem 0;
-        }
-
-        .feature-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            margin-bottom: 1rem;
-        }
-
-        .feature-icon {
-            background: var(--gold);
-            color: var(--black);
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            font-size: 0.8rem;
-        }
-
-        .feature-text h4 {
-            margin-bottom: 4px;
-            color: var(--gold-dark);
-        }
-
-        .feature-text p {
-            font-size: 0.9rem;
-            color: var(--dark-gray);
-        }
-
-        .intro-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 1.5rem;
-        }
-
-        .btn {
-            padding: 12px 20px;
-            border: none;
-            border-radius: 6px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            flex: 1;
             text-align: center;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .btn-primary {
-            background-color: var(--gold);
-            color: var(--black);
-            font-weight: 600;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--gold-dark);
-            color: var(--white);
-        }
-
-        .btn-secondary {
-            background-color: var(--light-gray);
-            color: var(--dark-gray);
-        }
-
-        .btn-secondary:hover {
-            background-color: var(--dark-gray);
-            color: white;
         }
 
         .google-signin-container {
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid var(--light-gray);
-            text-align: center;
-        }
-
-        .google-signin-container p {
-            margin-bottom: 1rem;
-            color: var(--dark-gray);
+            margin: 1.5rem 0;
         }
 
         .close-modal {
@@ -353,151 +239,6 @@
             font-size: 1.2rem;
         }
 
-        /* Google Form Modal */
-        .google-form-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .google-form-modal.active {
-            display: flex;
-        }
-
-        .google-form-content {
-            background-color: white;
-            border-radius: 12px;
-            width: 95%;
-            max-width: 800px;
-            max-height: 90vh;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            animation: modalAppear 0.5s ease-out;
-        }
-
-        .google-form-header {
-            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-            color: var(--black);
-            padding: 1.5rem;
-            text-align: center;
-            position: relative;
-        }
-
-        .google-form-header h2 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .google-form-body {
-            padding: 0;
-            height: 600px;
-            overflow: hidden;
-        }
-
-        .google-form-iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* Success Modal */
-        .success-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .success-modal.active {
-            display: flex;
-        }
-
-        .success-content {
-            background-color: white;
-            border-radius: 12px;
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-            padding: 2.5rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            animation: modalAppear 0.5s ease-out;
-        }
-
-        .success-icon {
-            font-size: 3.5rem;
-            color: var(--gold);
-            margin-bottom: 1.5rem;
-        }
-
-        .success-content h2 {
-            margin-bottom: 1rem;
-            color: var(--gold-dark);
-        }
-
-        .success-content p {
-            margin-bottom: 1.5rem;
-            color: var(--dark-gray);
-        }
-
-        /* Loading spinner */
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid var(--gold);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Notification */
-        .notification {
-            position: fixed;
-            top: 70px;
-            right: 20px;
-            background: var(--black);
-            color: white;
-            padding: 12px 20px;
-            border-radius: 4px;
-            z-index: 1000;
-            opacity: 0;
-            transform: translateY(-20px);
-            transition: all 0.3s;
-            max-width: 300px;
-        }
-
-        .notification.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .notification.error {
-            background: #e74c3c;
-        }
-
-        .notification.success {
-            background: var(--gold);
-            color: var(--black);
-        }
-
         /* Main Content */
         .container {
             max-width: 600px;
@@ -505,161 +246,156 @@
             padding: 1rem;
         }
 
-        /* Member Dashboard */
-        .welcome-banner {
-            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-            color: var(--black);
-            padding: 2rem;
-            border-radius: 12px;
-            text-align: center;
-            margin-bottom: 2rem;
+        /* Community Posts */
+        .community-posts {
+            margin: 1rem 0;
         }
 
-        .welcome-banner h2 {
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
+        .posts-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding: 1rem 0;
+            border-bottom: 2px solid var(--gold-light);
         }
 
-        .dashboard-grid {
-            display: grid;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+        .posts-title {
+            font-size: 1.4rem;
+            color: var(--gold-dark);
+            font-weight: 600;
         }
 
-        .dashboard-card {
+        .post-card {
             background: var(--white);
             border: 1px solid var(--light-gray);
-            border-radius: 8px;
+            border-radius: 12px;
             padding: 1.5rem;
-            text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        .dashboard-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        .post-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
-        .card-icon {
-            font-size: 2.5rem;
-            color: var(--gold);
-            margin-bottom: 1rem;
-        }
-
-        .card-title {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            color: var(--gold-dark);
-        }
-
-        .card-description {
-            color: var(--dark-gray);
-            margin-bottom: 1rem;
-        }
-
-        .card-action {
-            background: var(--gold);
-            color: var(--black);
-            border: none;
-            border-radius: 5px;
-            padding: 8px 16px;
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-block;
-            transition: background-color 0.3s;
-        }
-
-        .card-action:hover {
-            background: var(--gold-dark);
-            color: var(--white);
-        }
-
-        /* Recent Activity */
-        .recent-activity {
-            background: var(--gray);
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .activity-title {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            color: var(--gold-dark);
-        }
-
-        .activity-item {
+        .post-header {
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 1rem;
-            background: var(--white);
-            border-radius: 6px;
-            margin-bottom: 0.8rem;
+            margin-bottom: 1rem;
         }
 
-        .activity-icon {
-            color: var(--gold);
+        .post-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--gold);
+        }
+
+        .post-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .post-author-info {
+            flex: 1;
+        }
+
+        .post-author {
+            font-weight: 600;
+            color: var(--gold-dark);
+            font-size: 1.1rem;
+        }
+
+        .post-time {
+            font-size: 0.8rem;
+            color: var(--dark-gray);
+            margin-top: 2px;
+        }
+
+        .post-content {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .post-content h3 {
+            color: var(--gold-dark);
+            margin-bottom: 0.5rem;
             font-size: 1.2rem;
         }
 
-        /* No Posts Message */
-        .no-posts {
-            text-align: center;
-            padding: 3rem 1rem;
-            color: var(--dark-gray);
+        .post-content p {
+            margin-bottom: 0.8rem;
         }
 
-        .no-posts-icon {
-            font-size: 3rem;
-            color: var(--gold);
-            margin-bottom: 1rem;
+        .post-content ul, .post-content ol {
+            margin: 0.8rem 0;
+            padding-left: 1.5rem;
         }
 
-        .no-posts h3 {
-            margin-bottom: 1rem;
-            color: var(--gold-dark);
+        .post-content li {
+            margin-bottom: 0.4rem;
         }
 
-        /* Contact Section */
-        .contact-section {
-            background-color: var(--gray);
+        .post-image {
+            width: 100%;
             border-radius: 8px;
-            padding: 1.5rem;
-            margin: 2rem 0;
-            text-align: center;
+            margin: 1rem 0;
+            overflow: hidden;
         }
 
-        .contact-section h3 {
-            margin-bottom: 1rem;
-            color: var(--gold-dark);
+        .post-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
         }
 
-        .contact-buttons {
+        .post-actions {
             display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 1rem;
+            gap: 1rem;
+            border-top: 1px solid var(--light-gray);
+            padding-top: 1rem;
         }
 
-        .contact-btn {
-            background-color: var(--gold);
-            color: var(--black);
+        .post-action {
+            background: none;
             border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            text-decoration: none;
-            font-size: 0.9rem;
+            color: var(--dark-gray);
+            cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 8px;
-            transition: background-color 0.3s;
-            font-weight: 600;
+            gap: 6px;
+            transition: color 0.3s;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-weight: 500;
         }
 
-        .contact-btn:hover {
-            background-color: var(--gold-dark);
-            color: var(--white);
+        .post-action:hover {
+            background: var(--gray);
+            color: var(--gold-dark);
+        }
+
+        .post-action.liked {
+            color: #e74c3c;
+        }
+
+        .welcome-post {
+            border-left: 4px solid var(--gold);
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .event-post {
+            border-left: 4px solid var(--accent);
+        }
+
+        .resource-post {
+            border-left: 4px solid #3498db;
         }
 
         /* Bottom Navigation */
@@ -699,47 +435,58 @@
             color: var(--gold-dark);
         }
 
-        /* Responsive Design */
-        @media (min-width: 768px) {
-            .container {
-                max-width: 600px;
-            }
-            
-            .dashboard-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .intro-actions {
-                flex-direction: row;
-            }
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 70px;
+            right: 20px;
+            background: var(--black);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 4px;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.3s;
+            max-width: 300px;
         }
 
+        .notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .notification.error {
+            background: #e74c3c;
+        }
+
+        .notification.success {
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        /* Responsive Design */
         @media (max-width: 480px) {
-            .intro-actions {
-                flex-direction: column;
-            }
-            
-            .notification {
-                right: 10px;
-                left: 10px;
-                max-width: none;
-            }
-            
             .user-name {
                 display: none;
             }
             
-            .google-form-content {
-                width: 98%;
-                height: 90vh;
+            .post-avatar {
+                width: 40px;
+                height: 40px;
             }
             
-            .google-form-body {
-                height: calc(90vh - 80px);
+            .post-card {
+                padding: 1rem;
             }
             
-            .contact-buttons {
-                flex-direction: column;
+            .post-actions {
+                gap: 0.5rem;
+            }
+            
+            .post-action {
+                padding: 6px 8px;
+                font-size: 0.8rem;
             }
         }
     </style>
@@ -748,92 +495,39 @@
     <!-- Notification -->
     <div class="notification" id="notification"></div>
 
-    <!-- Platform Intro Modal -->
-    <div class="intro-modal" id="introModal">
-        <div class="intro-content">
-            <div class="intro-header">
+    <!-- Sign In Modal -->
+    <div class="signin-modal active" id="signinModal">
+        <div class="signin-content">
+            <div class="signin-header">
                 <h2>Welcome to THE SONGA WELFARE</h2>
-                <p>A Private Membership Community</p>
-                <button class="close-modal" id="closeIntroModal">&times;</button>
+                <p>Member Community Portal</p>
+                <button class="close-modal" id="closeSigninModal">&times;</button>
             </div>
-            <div class="intro-body">
-                <p>THE SONGA WELFARE is an exclusive membership-based platform dedicated to personal growth, financial empowerment, and community building.</p>
+            <div class="signin-body">
+                <p>Sign in to access our exclusive community feed and connect with fellow members.</p>
                 
-                <div class="intro-features">
-                    <div class="feature-item">
-                        <div class="feature-icon">
-                            <i class="fas fa-crown"></i>
-                        </div>
-                        <div class="feature-text">
-                            <h4>Membership-Based Access</h4>
-                            <p>All platform features and content require an active membership</p>
-                        </div>
+                <div class="google-signin-container">
+                    <div id="g_id_onload"
+                         data-client_id="138110899008-60ae40rmsh5v7oqv50o18kuuo08kvvus.apps.googleusercontent.com"
+                         data-context="signin"
+                         data-ux_mode="popup"
+                         data-callback="handleGoogleSignIn"
+                         data-auto_prompt="false">
                     </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <div class="feature-text">
-                            <h4>Exclusive Community</h4>
-                            <p>Connect with like-minded individuals in our private network</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">
-                            <i class="fas fa-graduation-cap"></i>
-                        </div>
-                        <div class="feature-text">
-                            <h4>Premium Resources</h4>
-                            <p>Access curated content, events, and coaching sessions</p>
-                        </div>
+                    <div class="g_id_signin"
+                         data-type="standard"
+                         data-shape="rectangular"
+                         data-theme="outline"
+                         data-text="signin_with"
+                         data-size="large"
+                         data-logo_alignment="left">
                     </div>
                 </div>
                 
-                <div class="intro-actions">
-                    <button class="btn btn-primary" id="introApplyBtn">
-                        <i class="fas fa-user-plus"></i> Apply for Membership
-                    </button>
-                    <button class="btn btn-secondary" id="explorePlatformBtn">
-                        <i class="fas fa-compass"></i> Explore Platform First
-                    </button>
-                </div>
+                <p style="font-size: 0.9rem; color: var(--dark-gray); margin-top: 1rem;">
+                    By signing in, you agree to our community guidelines and membership terms.
+                </p>
             </div>
-        </div>
-    </div>
-
-    <!-- Google Form Modal -->
-    <div class="google-form-modal" id="googleFormModal">
-        <div class="google-form-content">
-            <div class="google-form-header">
-                <h2>THE SONGA WELFARE Membership Application</h2>
-                <p>Complete your application to join our exclusive community</p>
-                <button class="close-modal" id="closeGoogleFormModal">&times;</button>
-            </div>
-            <div class="google-form-body">
-                <iframe 
-                    src="https://docs.google.com/forms/d/e/1FAIpQLScann_IwZdMXihlYHa6jQK1gLy7qEsIVDR-mKUzc3CroZgvOQ/viewform?embedded=true" 
-                    class="google-form-iframe"
-                    frameborder="0"
-                    marginheight="0"
-                    marginwidth="0">
-                    Loading…
-                </iframe>
-            </div>
-        </div>
-    </div>
-
-    <!-- Success Modal -->
-    <div class="success-modal" id="successModal">
-        <div class="success-content">
-            <div class="success-icon">
-                <i class="fas fa-check-circle"></i>
-            </div>
-            <h2>Application Received!</h2>
-            <p>Thank you for applying to THE SONGA WELFARE. Our team will review your application carefully.</p>
-            <p>You will receive an email shortly with the next steps to fully activate your membership privileges.</p>
-            <button class="btn btn-primary" id="closeSuccessModal">
-                <i class="fas fa-thumbs-up"></i> Understood
-            </button>
         </div>
     </div>
 
@@ -869,114 +563,188 @@
                         </div>
                     </div>
                 </div>
-                <button class="join-btn" id="headerJoinBtn">
-                    <i class="fas fa-user-plus"></i>
-                    <span>Apply for Membership</span>
-                </button>
             </div>
         </div>
     </header>
 
-    <!-- Main Content -->
+    <!-- Main Content - Social Media Feed -->
     <main class="container">
-        <!-- Welcome Banner -->
-        <div class="welcome-banner">
-            <h2>THE SONGA WELFARE</h2>
-            <p>Private Community Portal</p>
-        </div>
-
-        <!-- Dashboard Grid -->
-        <div class="dashboard-grid">
-            <div class="dashboard-card">
-                <div class="card-icon">
-                    <i class="fas fa-calendar-alt"></i>
-                </div>
-                <h3 class="card-title">Exclusive Events</h3>
-                <p class="card-description">Access members-only workshops, networking events, and community gatherings</p>
-                <button class="card-action" id="eventsCardBtn">View Events</button>
+        <div class="community-posts">
+            <div class="posts-header">
+                <h1 class="posts-title">Community Feed</h1>
             </div>
 
-            <div class="dashboard-card">
-                <div class="card-icon">
-                    <i class="fas fa-book"></i>
+            <!-- Welcome Post -->
+            <div class="post-card welcome-post">
+                <div class="post-header">
+                    <div class="post-avatar">
+                        <img src="https://i.postimg.cc/QCfkMpcM/20251121-1617-Golden-Lion-Emblem-remix-01kak8vrfpfb9r1335qyg8w1gt.png" alt="Admin Avatar">
+                    </div>
+                    <div class="post-author-info">
+                        <div class="post-author">THE SONGA WELFARE</div>
+                        <div class="post-time">Just now</div>
+                    </div>
                 </div>
-                <h3 class="card-title">Resource Library</h3>
-                <p class="card-description">Premium educational content, guides, and exclusive member resources</p>
-                <button class="card-action" id="libraryCardBtn">Access Library</button>
-            </div>
-
-            <div class="dashboard-card">
-                <div class="card-icon">
-                    <i class="fas fa-users"></i>
+                <div class="post-content">
+                    <h3>🎉 Welcome to Our Community!</h3>
+                    <p>We're thrilled to have you as part of THE SONGA WELFARE family. This is your space to connect, learn, and grow with like-minded individuals.</p>
+                    
+                    <p><strong>What to expect in our community:</strong></p>
+                    <ul>
+                        <li>📚 Exclusive educational content and resources</li>
+                        <li>🎯 Practical financial strategies and insights</li>
+                        <li>🤝 Networking with ambitious members</li>
+                        <li>💡 Regular updates and announcements</li>
+                        <li>🌟 Member success stories and spotlights</li>
+                    </ul>
+                    
+                    <p>Make sure to engage with posts you find valuable and connect with fellow members in the comments!</p>
+                    
+                    <p style="font-style: italic; margin-top: 1rem;">Welcome aboard!<br>- The SONGA WELFARE Team</p>
                 </div>
-                <h3 class="card-title">Community Network</h3>
-                <p class="card-description">Connect with fellow members and participate in private discussions</p>
-                <button class="card-action" id="communityCardBtn">Join Community</button>
-            </div>
-
-            <div class="dashboard-card">
-                <div class="card-icon">
-                    <i class="fas fa-chart-line"></i>
-                </div>
-                <h3 class="card-title">Financial Coaching</h3>
-                <p class="card-description">Private financial coaching sessions and wealth-building strategies</p>
-                <button class="card-action" id="coachingCardBtn">Book Session</button>
-            </div>
-        </div>
-
-        <!-- Recent Activity -->
-        <div class="recent-activity">
-            <h3 class="activity-title">Platform Features</h3>
-            
-            <div class="activity-item">
-                <div class="activity-icon">
-                    <i class="fas fa-shield-alt"></i>
-                </div>
-                <div class="activity-text">
-                    <strong>Private Membership</strong> - Exclusive access to all platform features
+                <div class="post-actions">
+                    <button class="post-action">
+                        <i class="fas fa-heart"></i> <span>24</span>
+                    </button>
+                    <button class="post-action">
+                        <i class="fas fa-comment"></i> <span>8</span>
+                    </button>
+                    <button class="post-action">
+                        <i class="fas fa-share"></i> <span>Share</span>
+                    </button>
+                    <button class="post-action">
+                        <i class="fas fa-bookmark"></i> <span>Save</span>
+                    </button>
                 </div>
             </div>
 
-            <div class="activity-item">
-                <div class="activity-icon">
-                    <i class="fas fa-graduation-cap"></i>
+            <!-- Event Announcement Post -->
+            <div class="post-card event-post">
+                <div class="post-header">
+                    <div class="post-avatar">
+                        <img src="https://i.postimg.cc/QCfkMpcM/20251121-1617-Golden-Lion-Emblem-remix-01kak8vrfpfb9r1335qyg8w1gt.png" alt="Admin Avatar">
+                    </div>
+                    <div class="post-author-info">
+                        <div class="post-author">THE SONGA WELFARE</div>
+                        <div class="post-time">2 hours ago</div>
+                    </div>
                 </div>
-                <div class="activity-text">
-                    <strong>Premium Content</strong> - Curated resources for personal and financial growth
+                <div class="post-content">
+                    <h3>📅 Wealth Building Workshop - This Saturday!</h3>
+                    <p>Join us for an exclusive members-only workshop where we'll dive deep into practical wealth creation strategies.</p>
+                    
+                    <p><strong>Workshop Highlights:</strong></p>
+                    <ul>
+                        <li>Investment strategies for beginners</li>
+                        <li>Passive income opportunities</li>
+                        <li>Wealth preservation techniques</li>
+                        <li>Q&A with financial experts</li>
+                    </ul>
+                    
+                    <p><strong>Date:</strong> This Saturday, 2:00 PM<br>
+                    <strong>Location:</strong> Members Portal → Events Section</p>
+                    
+                    <p>Limited spots available! Make sure to RSVP in the Events section.</p>
+                </div>
+                <div class="post-actions">
+                    <button class="post-action">
+                        <i class="fas fa-heart"></i> <span>18</span>
+                    </button>
+                    <button class="post-action">
+                        <i class="fas fa-comment"></i> <span>5</span>
+                    </button>
+                    <button class="post-action">
+                        <i class="fas fa-share"></i> <span>Share</span>
+                    </button>
+                    <button class="post-action">
+                        <i class="fas fa-bookmark"></i> <span>Save</span>
+                    </button>
                 </div>
             </div>
 
-            <div class="activity-item">
-                <div class="activity-icon">
-                    <i class="fas fa-handshake"></i>
+            <!-- Resource Post -->
+            <div class="post-card resource-post">
+                <div class="post-header">
+                    <div class="post-avatar">
+                        <img src="https://i.postimg.cc/QCfkMpcM/20251121-1617-Golden-Lion-Emblem-remix-01kak8vrfpfb9r1335qyg8w1gt.png" alt="Admin Avatar">
+                    </div>
+                    <div class="post-author-info">
+                        <div class="post-author">THE SONGA WELFARE</div>
+                        <div class="post-time">1 day ago</div>
+                    </div>
                 </div>
-                <div class="activity-text">
-                    <strong>Community Support</strong> - Network with like-minded individuals
+                <div class="post-content">
+                    <h3>📖 New Resource: Financial Independence Guide</h3>
+                    <p>We've just added a comprehensive guide to achieving financial independence to our resource library!</p>
+                    
+                    <p>This 50-page guide covers:</p>
+                    <ul>
+                        <li>Setting realistic financial goals</li>
+                        <li>Budgeting and expense tracking</li>
+                        <li>Investment fundamentals</li>
+                        <li>Debt management strategies</li>
+                        <li>Building multiple income streams</li>
+                    </ul>
+                    
+                    <p>Access it now in the Library section of your member portal. Perfect for both beginners and those looking to optimize their financial strategy.</p>
+                </div>
+                <div class="post-actions">
+                    <button class="post-action">
+                        <i class="fas fa-heart"></i> <span>32</span>
+                    </button>
+                    <button class="post-action">
+                        <i class="fas fa-comment"></i> <span>12</span>
+                    </button>
+                    <button class="post-action">
+                        <i class="fas fa-share"></i> <span>Share</span>
+                    </button>
+                    <button class="post-action">
+                        <i class="fas fa-bookmark"></i> <span>Save</span>
+                    </button>
                 </div>
             </div>
-        </div>
 
-        <!-- No Posts Message -->
-        <div class="no-posts">
-            <div class="no-posts-icon">
-                <i class="fas fa-newspaper"></i>
-            </div>
-            <h3>Community Feed</h3>
-            <p>Recent community updates and discussions will appear here.</p>
-            <p>Become a member to participate in conversations and access exclusive content.</p>
-        </div>
-
-        <!-- Contact Section -->
-        <div class="contact-section">
-            <h3>Ready to Join Our Community?</h3>
-            <p>Apply for membership to unlock all platform features and join our exclusive network.</p>
-            <div class="contact-buttons">
-                <button class="contact-btn" id="contactJoinBtn">
-                    <i class="fas fa-user-plus"></i> Apply for Membership
-                </button>
-                <a href="mailto:office.songawelfare@gmail.com" class="contact-btn">
-                    <i class="fas fa-envelope"></i> Contact Us
-                </a>
+            <!-- Community Update Post -->
+            <div class="post-card">
+                <div class="post-header">
+                    <div class="post-avatar">
+                        <img src="https://i.postimg.cc/QCfkMpcM/20251121-1617-Golden-Lion-Emblem-remix-01kak8vrfpfb9r1335qyg8w1gt.png" alt="Admin Avatar">
+                    </div>
+                    <div class="post-author-info">
+                        <div class="post-author">THE SONGA WELFARE</div>
+                        <div class="post-time">3 days ago</div>
+                    </div>
+                </div>
+                <div class="post-content">
+                    <h3>🌟 Community Spotlight: Member Success Stories</h3>
+                    <p>We're excited to share that several of our members have reached significant financial milestones this month!</p>
+                    
+                    <p><strong>Recent Successes:</strong></p>
+                    <ul>
+                        <li>Sarah M. paid off $15,000 in student loans</li>
+                        <li>James K. started his first investment portfolio</li>
+                        <li>The Johnson family built their emergency fund</li>
+                        <li>Michael T. launched his side business</li>
+                    </ul>
+                    
+                    <p>Remember, every journey starts with a single step. Celebrate your wins, no matter how small, and keep pushing forward!</p>
+                    
+                    <p>Want to share your success story? Reach out to us - we'd love to feature you in our next community update!</p>
+                </div>
+                <div class="post-actions">
+                    <button class="post-action">
+                        <i class="fas fa-heart"></i> <span>45</span>
+                    </button>
+                    <button class="post-action">
+                        <i class="fas fa-comment"></i> <span>22</span>
+                    </button>
+                    <button class="post-action">
+                        <i class="fas fa-share"></i> <span>Share</span>
+                    </button>
+                    <button class="post-action">
+                        <i class="fas fa-bookmark"></i> <span>Save</span>
+                    </button>
+                </div>
             </div>
         </div>
     </main>
@@ -985,7 +753,7 @@
     <nav class="bottom-nav">
         <a href="index.html" class="nav-item active">
             <i class="fas fa-home nav-icon"></i>
-            <span>Home</span>
+            <span>Feed</span>
         </a>
         <a href="events.html" class="nav-item">
             <i class="fas fa-calendar-alt nav-icon"></i>
@@ -995,45 +763,24 @@
             <i class="fas fa-book nav-icon"></i>
             <span>Library</span>
         </a>
-        <a href="about.html" class="nav-item">
-            <i class="fas fa-info-circle nav-icon"></i>
-            <span>About</span>
+        <a href="community.html" class="nav-item">
+            <i class="fas fa-users nav-icon"></i>
+            <span>Network</span>
         </a>
     </nav>
 
     <script>
-        // Configuration
-        const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScann_IwZdMXihlYHa6jQK1gLy7qEsIVDR-mKUzc3CroZgvOQ/viewform?embedded=true';
-        
         // DOM Elements
-        const introModal = document.getElementById('introModal');
-        const googleFormModal = document.getElementById('googleFormModal');
-        const successModal = document.getElementById('successModal');
-        const closeIntroModal = document.getElementById('closeIntroModal');
-        const closeGoogleFormModal = document.getElementById('closeGoogleFormModal');
-        const closeSuccessModal = document.getElementById('closeSuccessModal');
-        const headerJoinBtn = document.getElementById('headerJoinBtn');
-        const introApplyBtn = document.getElementById('introApplyBtn');
-        const explorePlatformBtn = document.getElementById('explorePlatformBtn');
-        const contactJoinBtn = document.getElementById('contactJoinBtn');
-        const eventsCardBtn = document.getElementById('eventsCardBtn');
-        const libraryCardBtn = document.getElementById('libraryCardBtn');
-        const communityCardBtn = document.getElementById('communityCardBtn');
-        const coachingCardBtn = document.getElementById('coachingCardBtn');
-        const notification = document.getElementById('notification');
+        const signinModal = document.getElementById('signinModal');
         const userProfile = document.getElementById('userProfile');
         const userAvatar = document.getElementById('userAvatar');
         const userDisplayName = document.getElementById('userDisplayName');
         const userDropdown = document.getElementById('userDropdown');
-        const viewProfileOption = document.getElementById('viewProfileOption');
-        const membershipOption = document.getElementById('membershipOption');
-        const settingsOption = document.getElementById('settingsOption');
-        const signOutOption = document.getElementById('signOutOption');
+        const notification = document.getElementById('notification');
 
         // User state
         let currentUser = null;
         let dropdownOpen = false;
-        let hasSeenIntro = false;
 
         // Show notification
         function showNotification(message, type = 'success') {
@@ -1044,38 +791,25 @@
             }, 4000);
         }
 
-        // Check if user has seen intro
-        function checkIntroStatus() {
-            hasSeenIntro = localStorage.getItem('the_songa_welfare_intro_seen') === 'true';
-            if (!hasSeenIntro) {
-                setTimeout(() => {
-                    introModal.classList.add('active');
-                }, 1000);
-            }
-        }
-
-        // Mark intro as seen
-        function markIntroAsSeen() {
-            localStorage.setItem('the_songa_welfare_intro_seen', 'true');
-            hasSeenIntro = true;
-        }
-
-        // Check membership status
-        function checkMembershipStatus() {
+        // Check if user is signed in
+        function checkAuthStatus() {
             const storedUser = localStorage.getItem('the_songa_welfare_user');
             if (storedUser) {
                 currentUser = JSON.parse(storedUser);
-                updateUserProfile();
+                updateUIForMember();
+                signinModal.classList.remove('active');
+            } else {
+                signinModal.classList.add('active');
             }
         }
 
-        // Update user profile in header
-        function updateUserProfile() {
+        // Update UI for signed-in members
+        function updateUIForMember() {
+            userProfile.style.display = 'flex';
+            
             if (currentUser) {
                 userAvatar.src = currentUser.picture;
                 userDisplayName.textContent = currentUser.firstName;
-                userProfile.style.display = 'flex';
-                headerJoinBtn.style.display = 'none';
             }
         }
 
@@ -1096,15 +830,11 @@
                 emailVerified: userData.email_verified
             };
             
-            updateUserProfile();
             localStorage.setItem('the_songa_welfare_user', JSON.stringify(currentUser));
+            updateUIForMember();
+            signinModal.classList.remove('active');
             
-            showNotification(`Welcome, ${currentUser.firstName}!`, 'success');
-            introModal.classList.remove('active');
-            
-            setTimeout(() => {
-                googleFormModal.classList.add('active');
-            }, 1000);
+            showNotification(`Welcome to the community, ${currentUser.firstName}!`, 'success');
         }
 
         // Parse JWT token
@@ -1125,10 +855,9 @@
         // Sign out user
         function signOut() {
             currentUser = null;
-            userProfile.style.display = 'none';
-            headerJoinBtn.style.display = 'flex';
             localStorage.removeItem('the_songa_welfare_user');
             closeDropdown();
+            signinModal.classList.add('active');
             showNotification('Signed out successfully', 'success');
         }
 
@@ -1148,18 +877,9 @@
             userDropdown.classList.remove('active');
         }
 
-        // Show membership required message
-        function showMembershipRequired() {
-            showNotification('Membership required to access this feature. Please apply to join our community.', 'error');
-            setTimeout(() => {
-                introModal.classList.add('active');
-            }, 500);
-        }
-
         // Event Listeners
         document.addEventListener('DOMContentLoaded', function() {
-            checkIntroStatus();
-            checkMembershipStatus();
+            checkAuthStatus();
             
             userProfile.addEventListener('click', function(e) {
                 e.stopPropagation();
@@ -1176,96 +896,57 @@
         });
 
         // Dropdown option event listeners
-        viewProfileOption.addEventListener('click', function() {
-            showNotification('Member profile access coming soon!', 'success');
+        document.getElementById('viewProfileOption').addEventListener('click', function() {
+            showNotification('Profile page coming soon!');
             closeDropdown();
         });
 
-        membershipOption.addEventListener('click', function() {
-            googleFormModal.classList.add('active');
+        document.getElementById('membershipOption').addEventListener('click', function() {
+            showNotification('Your membership is active and in good standing.');
             closeDropdown();
         });
 
-        settingsOption.addEventListener('click', function() {
-            showNotification('Member preferences coming soon!', 'success');
+        document.getElementById('settingsOption').addEventListener('click', function() {
+            showNotification('Settings page coming soon!');
             closeDropdown();
         });
 
-        signOutOption.addEventListener('click', function() {
+        document.getElementById('signOutOption').addEventListener('click', function() {
             signOut();
             closeDropdown();
         });
 
-        // Apply for membership buttons
-        headerJoinBtn.addEventListener('click', function() {
-            introModal.classList.add('active');
-        });
-
-        introApplyBtn.addEventListener('click', function() {
-            introModal.classList.remove('active');
-            markIntroAsSeen();
-            googleFormModal.classList.add('active');
-        });
-
-        explorePlatformBtn.addEventListener('click', function() {
-            introModal.classList.remove('active');
-            markIntroAsSeen();
-            showNotification('Feel free to explore the platform features!', 'success');
-        });
-
-        contactJoinBtn.addEventListener('click', function() {
-            introModal.classList.add('active');
-        });
-
-        // Dashboard card buttons
-        eventsCardBtn.addEventListener('click', function() {
-            showMembershipRequired();
-        });
-
-        libraryCardBtn.addEventListener('click', function() {
-            showMembershipRequired();
-        });
-
-        communityCardBtn.addEventListener('click', function() {
-            showMembershipRequired();
-        });
-
-        coachingCardBtn.addEventListener('click', function() {
-            showMembershipRequired();
-        });
-
-        // Close modals
-        closeIntroModal.addEventListener('click', function() {
-            introModal.classList.remove('active');
-            markIntroAsSeen();
-        });
-
-        closeGoogleFormModal.addEventListener('click', function() {
-            googleFormModal.classList.remove('active');
-        });
-
-        closeSuccessModal.addEventListener('click', function() {
-            successModal.classList.remove('active');
-        });
-
-        // Close modals when clicking outside
-        introModal.addEventListener('click', function(e) {
-            if (e.target === introModal) {
-                introModal.classList.remove('active');
-                markIntroAsSeen();
-            }
-        });
-
-        googleFormModal.addEventListener('click', function(e) {
-            if (e.target === googleFormModal) {
-                googleFormModal.classList.remove('active');
-            }
-        });
-
-        successModal.addEventListener('click', function(e) {
-            if (e.target === successModal) {
-                successModal.classList.remove('active');
-            }
+        // Post action buttons (like, comment, share) - Read only for members
+        document.querySelectorAll('.post-action').forEach(button => {
+            button.addEventListener('click', function() {
+                const action = this.querySelector('i').className;
+                if (action.includes('fa-heart')) {
+                    this.classList.toggle('liked');
+                    const span = this.querySelector('span');
+                    let count = parseInt(span.textContent) || 0;
+                    
+                    if (this.classList.contains('liked')) {
+                        span.textContent = count + 1;
+                        this.innerHTML = '<i class="fas fa-heart" style="color: #e74c3c;"></i> <span>' + (count + 1) + '</span>';
+                        showNotification('Liked!');
+                    } else {
+                        span.textContent = count - 1;
+                        this.innerHTML = '<i class="fas fa-heart"></i> <span>' + (count - 1) + '</span>';
+                    }
+                } else if (action.includes('fa-comment')) {
+                    showNotification('Comments are view-only. Contact admin for discussions.');
+                } else if (action.includes('fa-share')) {
+                    showNotification('Post shared to your clipboard!');
+                } else if (action.includes('fa-bookmark')) {
+                    this.classList.toggle('saved');
+                    if (this.classList.contains('saved')) {
+                        this.innerHTML = '<i class="fas fa-bookmark" style="color: var(--gold);"></i> <span>Saved</span>';
+                        showNotification('Post saved!');
+                    } else {
+                        this.innerHTML = '<i class="fas fa-bookmark"></i> <span>Save</span>';
+                    }
+                }
+            });
         });
 
         // Global function for Google Sign-In callback
