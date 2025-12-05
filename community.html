@@ -392,6 +392,18 @@
             border: 2px solid var(--gold);
         }
 
+        .club-join-btn.pending {
+            background-color: var(--gold);
+            color: var(--black);
+            opacity: 0.8;
+        }
+
+        .club-join-btn.processing {
+            background-color: var(--light-gray);
+            color: var(--dark-gray);
+            cursor: not-allowed;
+        }
+
         /* My Clubs Section */
         .my-clubs-section {
             margin-top: 2rem;
@@ -411,6 +423,7 @@
             align-items: center;
             gap: 15px;
             border-left: 4px solid var(--gold);
+            position: relative;
         }
 
         .my-club-icon {
@@ -433,6 +446,27 @@
         .my-club-info p {
             font-size: 0.85rem;
             color: var(--dark-gray);
+        }
+
+        .club-status-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-pending {
+            background-color: #FFF3CD;
+            color: #856404;
+        }
+
+        .status-approved {
+            background-color: #D4EDDA;
+            color: #155724;
         }
 
         .no-clubs-message {
@@ -544,9 +578,14 @@
             color: var(--dark-gray);
         }
 
-        .club-modal-btn:hover {
+        .club-modal-btn:hover:not(:disabled) {
             opacity: 0.9;
             transform: scale(1.02);
+        }
+
+        .club-modal-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
         }
 
         /* Google Form Modal */
@@ -706,7 +745,7 @@
             color: var(--dark-gray);
         }
 
-        .form-btn:hover {
+        .form-btn:hover:not(:disabled) {
             opacity: 0.9;
             transform: translateY(-2px);
         }
@@ -774,6 +813,81 @@
             cursor: pointer;
             font-size: 1.2rem;
             z-index: 10;
+        }
+
+        /* Application Status Modal */
+        .status-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .status-modal.active {
+            display: flex;
+        }
+
+        .status-modal-content {
+            background-color: white;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 450px;
+            animation: modalAppear 0.5s ease-out;
+            text-align: center;
+            padding: 2.5rem;
+        }
+
+        .status-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .status-icon.success {
+            color: #2ecc71;
+        }
+
+        .status-icon.pending {
+            color: var(--gold);
+        }
+
+        .status-icon.error {
+            color: #e74c3c;
+        }
+
+        .status-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--gold-dark);
+        }
+
+        .status-message {
+            color: var(--dark-gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .status-details {
+            background-color: var(--gray);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            text-align: left;
+        }
+
+        .status-details p {
+            margin-bottom: 0.5rem;
+        }
+
+        .status-actions {
+            margin-top: 1.5rem;
         }
 
         /* Sign In Modal */
@@ -894,6 +1008,22 @@
             color: white;
         }
 
+        /* Loading Spinner */
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
         /* Responsive Design */
         @media (max-width: 480px) {
             .user-name {
@@ -912,6 +1042,10 @@
             .club-modal-actions,
             .form-actions {
                 flex-direction: column;
+            }
+            
+            .status-modal-content {
+                padding: 1.5rem;
             }
         }
     </style>
@@ -989,12 +1123,12 @@
                     <h3 class="form-title">Personal Information</h3>
                     
                     <div class="form-group">
-                        <label class="form-label">Full Name</label>
+                        <label class="form-label">Full Name *</label>
                         <input type="text" class="form-input" id="fullName" placeholder="Enter your full name" required>
                     </div>
                     
                     <div class="form-group">
-                        <label class="form-label">Email Address</label>
+                        <label class="form-label">Email Address *</label>
                         <input type="email" class="form-input" id="email" placeholder="Enter your email" required>
                     </div>
                     
@@ -1004,7 +1138,7 @@
                     </div>
                     
                     <div class="form-group">
-                        <label class="form-label">Age Group</label>
+                        <label class="form-label">Age Group *</label>
                         <select class="form-select" id="ageGroup" required>
                             <option value="">Select your age group</option>
                             <option value="18-25">18-25 years</option>
@@ -1026,13 +1160,13 @@
                     <h3 class="form-title" id="step2Title">Club Specific Questions</h3>
                     
                     <div class="form-group">
-                        <label class="form-label" id="question1Label">What are your main goals for joining this club?</label>
-                        <textarea class="form-textarea" id="goals" placeholder="Please share your goals and expectations..." rows="4"></textarea>
+                        <label class="form-label" id="question1Label">What are your main goals for joining this club? *</label>
+                        <textarea class="form-textarea" id="goals" placeholder="Please share your goals and expectations..." rows="4" required></textarea>
                     </div>
                     
                     <div class="form-group">
-                        <label class="form-label" id="question2Label">How did you hear about this club?</label>
-                        <select class="form-select" id="referralSource">
+                        <label class="form-label" id="question2Label">How did you hear about this club? *</label>
+                        <select class="form-select" id="referralSource" required>
                             <option value="">Select an option</option>
                             <option value="member">From a current member</option>
                             <option value="website">THE SONGA website</option>
@@ -1043,7 +1177,7 @@
                     </div>
                     
                     <div class="form-group">
-                        <label class="form-label">How often can you participate?</label>
+                        <label class="form-label">How often can you participate? (Select all that apply)</label>
                         <div class="checkbox-group">
                             <input type="checkbox" id="frequencyWeekly" value="weekly">
                             <label for="frequencyWeekly">Weekly</label>
@@ -1089,15 +1223,37 @@
                     <div class="form-group">
                         <div class="checkbox-group">
                             <input type="checkbox" id="agreeTerms" required>
-                            <label for="agreeTerms">I agree to the club terms and conditions and community guidelines</label>
+                            <label for="agreeTerms">I agree to the club terms and conditions and community guidelines *</label>
                         </div>
                     </div>
                     
                     <div class="form-actions">
                         <button class="form-btn secondary" id="backStep3Btn">Back</button>
-                        <button class="form-btn primary" id="submitFormBtn">Submit Application</button>
+                        <button class="form-btn primary" id="submitFormBtn">
+                            <span class="submit-text">Submit Application</span>
+                            <span class="loading-spinner" style="display: none;"></span>
+                        </button>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Status Modal -->
+    <div class="status-modal" id="statusModal">
+        <div class="status-modal-content">
+            <div class="status-icon success" id="statusIcon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2 class="status-title" id="statusTitle">Application Submitted!</h2>
+            <p class="status-message" id="statusMessage">Your application has been successfully submitted.</p>
+            
+            <div class="status-details" id="statusDetails">
+                <!-- Details will be populated here -->
+            </div>
+            
+            <div class="status-actions">
+                <button class="club-modal-btn primary" id="closeStatusBtn">Continue</button>
             </div>
         </div>
     </div>
@@ -1231,9 +1387,17 @@
         const notification = document.getElementById('notification');
         const clubModal = document.getElementById('clubModal');
         const googleFormModal = document.getElementById('googleFormModal');
+        const statusModal = document.getElementById('statusModal');
         const clubsGrid = document.getElementById('clubsGrid');
         const myClubsContainer = document.getElementById('myClubsContainer');
         const noClubsMessage = document.getElementById('noClubsMessage');
+
+        // Configuration
+        const CONFIG = {
+            GOOGLE_APPS_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbzQxaStTslVJLFiFPouX1E84LvT_Mc1SVLw3iJX6TEOln0EVIDMDW2kLv4Fv0XED11m7A/exec', // Replace with your Google Apps Script web app URL
+            ENABLE_OFFLINE_MODE: true,
+            SUBMISSION_TIMEOUT: 10000 // 10 seconds
+        };
 
         // User state
         let currentUser = null;
@@ -1242,8 +1406,9 @@
         let selectedClub = null;
         let currentFormStep = 1;
         let currentClubForForm = null;
+        let isSubmitting = false;
 
-        // Club Data - Now including WorkFit Fitness Club
+        // Club Data
         const clubsData = [
             {
                 id: 1,
@@ -1493,7 +1658,9 @@
             clubsGrid.innerHTML = '';
             
             clubsData.forEach(club => {
-                const isJoined = userClubs.some(userClub => userClub.id === club.id);
+                const userClub = userClubs.find(c => c.id === club.id);
+                const isJoined = !!userClub;
+                const isPending = userClub && userClub.status === 'pending';
                 
                 const clubCard = document.createElement('div');
                 clubCard.className = `club-card ${club.type}`;
@@ -1516,8 +1683,14 @@
                                 <span>${club.meetingFrequency} Meetings</span>
                             </div>
                         </div>
-                        <button class="club-join-btn ${isJoined ? 'joined' : ''}" data-club-id="${club.id}">
-                            ${isJoined ? '<i class="fas fa-check-circle"></i> Joined' : `<i class="fas fa-plus-circle"></i> ${club.actionText}`}
+                        <button class="club-join-btn ${isJoined ? (isPending ? 'pending' : 'joined') : ''}" 
+                                data-club-id="${club.id}"us
+                                ${isPending ? 'disabled' : ''}>
+                            ${isJoined ? 
+                                (isPending ? 
+                                    '<i class="fas fa-clock"></i> Pending Review' : 
+                                    '<i class="fas fa-check-circle"></i> Joined') : 
+                                `<i class="fas fa-plus-circle"></i> ${club.actionText}`}
                         </button>
                     </div>
                 `;
@@ -1538,8 +1711,8 @@
                         return;
                     }
                     
-                    if (this.classList.contains('joined')) {
-                        leaveClub(clubId);
+                    if (this.classList.contains('joined') || this.classList.contains('pending')) {
+                        showApplicationStatus(clubId);
                     } else {
                         openGoogleForm(clubId);
                     }
@@ -1573,6 +1746,10 @@
                 const clubData = clubsData.find(c => c.id === userClub.id);
                 if (!clubData) return;
                 
+                const status = userClub.status || 'pending';
+                const statusText = status === 'pending' ? 'Under Review' : 
+                                 status === 'approved' ? 'Approved' : 'Joined';
+                
                 const myClubCard = document.createElement('div');
                 myClubCard.className = 'my-club-card';
                 myClubCard.innerHTML = `
@@ -1581,7 +1758,11 @@
                     </div>
                     <div class="my-club-info">
                         <h4>${clubData.title}</h4>
-                        <p>Joined ${userClub.joinedDate}</p>
+                        <p>Applied on ${userClub.applicationDate || userClub.joinedDate}</p>
+                        ${userClub.submissionId ? `<p style="font-size: 0.7rem; color: #666;">ID: ${userClub.submissionId}</p>` : ''}
+                    </div>
+                    <div class="club-status-badge status-${status}">
+                        ${statusText}
                     </div>
                 `;
                 
@@ -1592,57 +1773,104 @@
             myClubsContainer.appendChild(myClubsGrid);
         }
 
-        // Join a club
-        function joinClub(clubId) {
+        // Join a club (local storage only - for offline mode)
+        function joinClubLocal(clubId, submissionData = {}) {
             const club = clubsData.find(c => c.id === clubId);
             
             if (!userClubs.some(c => c.id === clubId)) {
-                userClubs.push({
+                const clubData = {
                     id: clubId,
-                    joinedDate: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
-                });
+                    joinedDate: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+                    applicationDate: new Date().toISOString().split('T')[0],
+                    status: 'pending',
+                    ...submissionData
+                };
                 
+                userClubs.push(clubData);
                 localStorage.setItem(`the_songa_clubs_${currentUser.id}`, JSON.stringify(userClubs));
                 
                 renderClubs();
                 renderMyClubs();
                 
-                showNotification(`You've joined the ${club.title}! Welcome to the club.`, 'success');
-                
-                // Update modal button if open
-                if (selectedClub && selectedClub.id === clubId) {
-                    document.getElementById('joinClubModalBtn').innerHTML = '<i class="fas fa-check-circle"></i> Joined';
-                    document.getElementById('joinClubModalBtn').classList.add('joined');
-                }
+                return clubData;
             }
+            
+            return userClubs.find(c => c.id === clubId);
         }
 
-        // Leave a club
-        function leaveClub(clubId) {
-            const club = clubsData.find(c => c.id === clubId);
-            const confirmLeave = confirm(`Are you sure you want to leave ${club.title}?`);
+        // Update club status
+        function updateClubStatus(clubId, status, submissionId = null) {
+            const clubIndex = userClubs.findIndex(c => c.id === clubId);
             
-            if (confirmLeave) {
-                userClubs = userClubs.filter(c => c.id !== clubId);
+            if (clubIndex !== -1) {
+                userClubs[clubIndex].status = status;
+                if (submissionId) {
+                    userClubs[clubIndex].submissionId = submissionId;
+                }
                 localStorage.setItem(`the_songa_clubs_${currentUser.id}`, JSON.stringify(userClubs));
                 
                 renderClubs();
                 renderMyClubs();
                 
-                showNotification(`You've left the ${club.title}.`, 'info');
-                
-                // Update modal button if open
-                if (selectedClub && selectedClub.id === clubId) {
-                    document.getElementById('joinClubModalBtn').innerHTML = 'Join Club';
-                    document.getElementById('joinClubModalBtn').classList.remove('joined');
-                }
+                return true;
             }
+            
+            return false;
+        }
+
+        // Show application status
+        function showApplicationStatus(clubId) {
+            const userClub = userClubs.find(c => c.id === clubId);
+            const clubData = clubsData.find(c => c.id === clubId);
+            
+            if (!userClub || !clubData) return;
+            
+            const status = userClub.status || 'pending';
+            const submissionId = userClub.submissionId || 'Not assigned';
+            const applicationDate = userClub.applicationDate || userClub.joinedDate;
+            
+            // Update status modal
+            const statusIcon = document.getElementById('statusIcon');
+            const statusTitle = document.getElementById('statusTitle');
+            const statusMessage = document.getElementById('statusMessage');
+            const statusDetails = document.getElementById('statusDetails');
+            
+            if (status === 'pending') {
+                statusIcon.className = 'status-icon pending';
+                statusIcon.innerHTML = '<i class="fas fa-clock"></i>';
+                statusTitle.textContent = 'Application Pending';
+                statusMessage.textContent = `Your application to ${clubData.title} is under review.`;
+            } else if (status === 'approved') {
+                statusIcon.className = 'status-icon success';
+                statusIcon.innerHTML = '<i class="fas fa-check-circle"></i>';
+                statusTitle.textContent = 'Application Approved!';
+                statusMessage.textContent = `Congratulations! You've been accepted to ${clubData.title}.`;
+            } else {
+                statusIcon.className = 'status-icon success';
+                statusIcon.innerHTML = '<i class="fas fa-check-circle"></i>';
+                statusTitle.textContent = 'Club Membership';
+                statusMessage.textContent = `You are a member of ${clubData.title}.`;
+            }
+            
+            statusDetails.innerHTML = `
+                <p><strong>Club:</strong> ${clubData.title}</p>
+                <p><strong>Application ID:</strong> ${submissionId}</p>
+                <p><strong>Status:</strong> ${status === 'pending' ? 'Under Review' : status === 'approved' ? 'Approved' : 'Active'}</p>
+                <p><strong>Applied on:</strong> ${applicationDate}</p>
+                ${status === 'pending' ? 
+                    '<p><em>You will receive an email once your application is reviewed.</em></p>' : 
+                    '<p><em>Check your email for club access details and upcoming events.</em></p>'}
+            `;
+            
+            statusModal.classList.add('active');
         }
 
         // Show club details in modal
         function showClubDetails(clubId) {
             selectedClub = clubsData.find(c => c.id === clubId);
-            const isJoined = userClubs.some(c => c.id === clubId);
+            const userClub = userClubs.find(c => c.id === clubId);
+            const isJoined = !!userClub;
+            const isPending = userClub && userClub.status === 'pending';
             
             // Update modal content
             document.getElementById('modalTitle').textContent = selectedClub.title;
@@ -1666,13 +1894,18 @@
             // Update join button
             const joinBtn = document.getElementById('joinClubModalBtn');
             if (isJoined) {
-                joinBtn.innerHTML = '<i class="fas fa-check-circle"></i> Joined';
-                joinBtn.classList.add('joined');
-                joinBtn.textContent = 'Joined';
+                if (isPending) {
+                    joinBtn.innerHTML = '<i class="fas fa-clock"></i> Application Pending';
+                    joinBtn.classList.add('pending');
+                    joinBtn.disabled = true;
+                } else {
+                    joinBtn.innerHTML = '<i class="fas fa-check-circle"></i> View Status';
+                    joinBtn.classList.add('joined');
+                }
             } else {
                 joinBtn.innerHTML = '<i class="fas fa-plus-circle"></i> Join Club';
-                joinBtn.classList.remove('joined');
-                joinBtn.textContent = 'Join Club';
+                joinBtn.classList.remove('joined', 'pending');
+                joinBtn.disabled = false;
             }
             
             // Show modal
@@ -1693,6 +1926,12 @@
             document.getElementById('question1Label').textContent = currentClubForForm.questions.q1;
             document.getElementById('question2Label').textContent = currentClubForForm.questions.q2;
             
+            // Pre-fill user data if available
+            if (currentUser) {
+                document.getElementById('fullName').value = currentUser.fullName || '';
+                document.getElementById('email').value = currentUser.email || '';
+            }
+            
             // Reset form
             resetForm();
             
@@ -1705,9 +1944,7 @@
 
         // Reset form
         function resetForm() {
-            // Clear all form fields
-            document.getElementById('fullName').value = '';
-            document.getElementById('email').value = '';
+            // Clear all form fields (except pre-filled user data)
             document.getElementById('phone').value = '';
             document.getElementById('ageGroup').value = '';
             document.getElementById('goals').value = '';
@@ -1723,6 +1960,14 @@
             
             // Reset progress
             updateProgress(1);
+            
+            // Reset submit button
+            const submitBtn = document.getElementById('submitFormBtn');
+            submitBtn.disabled = false;
+            submitBtn.querySelector('.submit-text').style.display = 'inline';
+            submitBtn.querySelector('.loading-spinner').style.display = 'none';
+            
+            isSubmitting = false;
         }
 
         // Show form step
@@ -1778,6 +2023,7 @@
             
             const fullName = document.getElementById('fullName').value;
             const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
             const ageGroup = document.getElementById('ageGroup').value;
             const goals = document.getElementById('goals').value;
             const referralSource = document.getElementById('referralSource').value;
@@ -1792,6 +2038,7 @@
                 <p><strong>Club:</strong> ${currentClubForForm.title}</p>
                 <p><strong>Name:</strong> ${fullName || 'Not provided'}</p>
                 <p><strong>Email:</strong> ${email || 'Not provided'}</p>
+                ${phone ? `<p><strong>Phone:</strong> ${phone}</p>` : ''}
                 <p><strong>Age Group:</strong> ${ageGroup || 'Not selected'}</p>
                 <p><strong>Goals:</strong> ${goals ? (goals.length > 100 ? goals.substring(0, 100) + '...' : goals) : 'Not provided'}</p>
                 <p><strong>Referral Source:</strong> ${referralSource || 'Not selected'}</p>
@@ -1858,24 +2105,195 @@
             return true;
         }
 
-        // Submit form application
-        function submitFormApplication() {
+        // Submit form application to Google Apps Script
+        async function submitFormApplication() {
+            if (isSubmitting) return;
+            
             if (!validateFormStep(3)) return;
             
-            // Simulate form submission
-            setTimeout(() => {
-                // Close form modal
-                googleFormModal.classList.remove('active');
+            isSubmitting = true;
+            
+            // Show loading state
+            const submitBtn = document.getElementById('submitFormBtn');
+            const submitText = submitBtn.querySelector('.submit-text');
+            const spinner = submitBtn.querySelector('.loading-spinner');
+            
+            submitBtn.disabled = true;
+            submitText.style.display = 'none';
+            spinner.style.display = 'inline-block';
+            
+            // Collect form data
+            const formData = {
+                clubId: currentClubForForm.id,
+                fullName: document.getElementById('fullName').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                ageGroup: document.getElementById('ageGroup').value,
+                goals: document.getElementById('goals').value.trim(),
+                referralSource: document.getElementById('referralSource').value,
+                frequency: getSelectedFrequencies(),
+                comments: document.getElementById('comments').value.trim(),
+                googleEmail: currentUser ? currentUser.email : null
+            };
+            
+            try {
+                // Check if we should use the API
+                if (CONFIG.GOOGLE_APPS_SCRIPT_URL && CONFIG.GOOGLE_APPS_SCRIPT_URL !== 'YOUR_WEB_APP_URL_HERE') {
+                    // Send to Google Apps Script
+                    const response = await fetchWithTimeout(CONFIG.GOOGLE_APPS_SCRIPT_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(formData)
+                    }, CONFIG.SUBMISSION_TIMEOUT);
+                    
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        // Success - update local storage with submission ID
+                        const submissionData = {
+                            submissionId: result.submissionId,
+                            status: 'pending',
+                            applicationDate: new Date().toISOString().split('T')[0]
+                        };
+                        
+                        joinClubLocal(currentClubForForm.id, submissionData);
+                        
+                        // Show success modal
+                        showSuccessModal(result);
+                        
+                        // Close form modal
+                        googleFormModal.classList.remove('active');
+                    } else {
+                        throw new Error(result.message || 'Submission failed');
+                    }
+                } else {
+                    // API URL not configured, use offline mode
+                    if (CONFIG.ENABLE_OFFLINE_MODE) {
+                        // Generate a local submission ID
+                        const submissionId = 'LOCAL-' + Date.now().toString(36).toUpperCase() + Math.random().toString(36).substring(2, 5).toUpperCase();
+                        
+                        const submissionData = {
+                            submissionId: submissionId,
+                            status: 'pending',
+                            applicationDate: new Date().toISOString().split('T')[0],
+                            formData: formData
+                        };
+                        
+                        joinClubLocal(currentClubForForm.id, submissionData);
+                        
+                        // Show success modal for offline mode
+                        showSuccessModal({
+                            success: true,
+                            submissionId: submissionId,
+                            message: 'Application submitted successfully! (Offline Mode)',
+                            clubName: currentClubForForm.name,
+                            timestamp: new Date().toLocaleString()
+                        });
+                        
+                        // Close form modal
+                        googleFormModal.classList.remove('active');
+                    } else {
+                        throw new Error('API not configured');
+                    }
+                }
                 
-                // Actually join the club
-                joinClub(currentClubForForm.id);
+            } catch (error) {
+                console.error('Submission error:', error);
                 
-                // Show success message
-                showNotification(`Application submitted successfully! You've been added to ${currentClubForForm.title}.`, 'success');
-                
-                // Reset form
-                resetForm();
-            }, 1500);
+                // Fallback to offline mode
+                if (CONFIG.ENABLE_OFFLINE_MODE) {
+                    const submissionId = 'OFFLINE-' + Date.now().toString(36).toUpperCase();
+                    
+                    const submissionData = {
+                        submissionId: submissionId,
+                        status: 'pending',
+                        applicationDate: new Date().toISOString().split('T')[0],
+                        formData: formData,
+                        offline: true
+                    };
+                    
+                    joinClubLocal(currentClubForForm.id, submissionData);
+                    
+                    showSuccessModal({
+                        success: true,
+                        submissionId: submissionId,
+                        message: 'Application saved locally. It will sync when online.',
+                        clubName: currentClubForForm.name,
+                        timestamp: new Date().toLocaleString(),
+                        offline: true
+                    });
+                    
+                    googleFormModal.classList.remove('active');
+                } else {
+                    showNotification('Error submitting application: ' + error.message, 'error');
+                }
+            } finally {
+                // Reset button state
+                submitBtn.disabled = false;
+                submitText.style.display = 'inline';
+                spinner.style.display = 'none';
+                isSubmitting = false;
+            }
+        }
+
+        // Fetch with timeout
+        async function fetchWithTimeout(url, options, timeout) {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), timeout);
+            
+            try {
+                const response = await fetch(url, {
+                    ...options,
+                    signal: controller.signal
+                });
+                clearTimeout(timeoutId);
+                return response;
+            } catch (error) {
+                clearTimeout(timeoutId);
+                throw error;
+            }
+        }
+
+        // Get selected frequencies
+        function getSelectedFrequencies() {
+            const frequencies = [];
+            if (document.getElementById('frequencyWeekly').checked) frequencies.push('weekly');
+            if (document.getElementById('frequencyBiWeekly').checked) frequencies.push('bi-weekly');
+            if (document.getElementById('frequencyMonthly').checked) frequencies.push('monthly');
+            if (document.getElementById('frequencyOccasional').checked) frequencies.push('occasional');
+            return frequencies;
+        }
+
+        // Show success modal
+        function showSuccessModal(result) {
+            const statusIcon = document.getElementById('statusIcon');
+            const statusTitle = document.getElementById('statusTitle');
+            const statusMessage = document.getElementById('statusMessage');
+            const statusDetails = document.getElementById('statusDetails');
+            
+            if (result.offline) {
+                statusIcon.className = 'status-icon pending';
+                statusIcon.innerHTML = '<i class="fas fa-cloud-upload-alt"></i>';
+                statusTitle.textContent = 'Saved Locally';
+                statusMessage.textContent = 'Your application has been saved locally and will sync when you are online.';
+            } else {
+                statusIcon.className = 'status-icon success';
+                statusIcon.innerHTML = '<i class="fas fa-check-circle"></i>';
+                statusTitle.textContent = 'Application Submitted!';
+                statusMessage.textContent = result.message || 'Your application has been successfully submitted.';
+            }
+            
+            statusDetails.innerHTML = `
+                <p><strong>Club:</strong> ${currentClubForForm.title}</p>
+                <p><strong>Application ID:</strong> ${result.submissionId}</p>
+                <p><strong>Submitted:</strong> ${new Date().toLocaleString()}</p>
+                <p><strong>Status:</strong> Under Review</p>
+                <p><em>You will receive a confirmation email shortly. Our team will review your application within 48 hours.</em></p>
+            `;
+            
+            statusModal.classList.add('active');
         }
 
         // Close club modal
@@ -1886,9 +2304,15 @@
 
         // Close form modal
         function closeFormModal() {
+            if (isSubmitting) return;
             googleFormModal.classList.remove('active');
             currentClubForForm = null;
             resetForm();
+        }
+
+        // Close status modal
+        function closeStatusModal() {
+            statusModal.classList.remove('active');
         }
 
         // Event Listeners
@@ -1913,6 +2337,7 @@
             document.getElementById('closeClubModal').addEventListener('click', closeClubModal);
             document.getElementById('closeModalBtn').addEventListener('click', closeClubModal);
             document.getElementById('closeFormModal').addEventListener('click', closeFormModal);
+            document.getElementById('closeStatusBtn').addEventListener('click', closeStatusModal);
             document.getElementById('closeSigninModal').addEventListener('click', function() {
                 signinModal.classList.remove('active');
             });
@@ -1927,8 +2352,10 @@
                 }
                 
                 if (selectedClub) {
-                    if (this.classList.contains('joined')) {
-                        leaveClub(selectedClub.id);
+                    const userClub = userClubs.find(c => c.id === selectedClub.id);
+                    
+                    if (userClub) {
+                        showApplicationStatus(selectedClub.id);
                     } else {
                         openGoogleForm(selectedClub.id);
                     }
@@ -1971,6 +2398,12 @@
             googleFormModal.addEventListener('click', function(e) {
                 if (e.target === googleFormModal) {
                     closeFormModal();
+                }
+            });
+            
+            statusModal.addEventListener('click', function(e) {
+                if (e.target === statusModal) {
+                    closeStatusModal();
                 }
             });
         });
